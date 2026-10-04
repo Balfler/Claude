@@ -21,3 +21,11 @@ __pycache__/
 
 # A copia do jogo montado que a bancada usa para comparar motores
 mundo-perigoso/canteiro/bancada/antigo.html
+
+# O repositorio e so do jogo: isto fica so na pasta
+.claude/memory/
+/setup.ps1
+/remover-onedrive.ps1
+/README.md
+/mundo-perigoso.zip
+*.lnk

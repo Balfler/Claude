@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ateli&#xea; de personagem</title>
+<style>
+:root{
+  --fundo:#15110d; --painel:#221b15; --borda:#3a2e22; --texto:#e6d8c0; --fraco:#9c8b72;
+  --ouro:#c8963c; --ouro-claro:#e8b860; --perigo:#d0503a; --bom:#7fb069; --campo:#110d0a;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{height:100%;margin:0;background:var(--fundo);color:var(--texto);
+  font:13px/1.35 "Segoe UI",system-ui,sans-serif;overflow:hidden}
+#app{display:grid;grid-template-columns:170px 1fr 330px;grid-template-rows:40px 1fr 30px;height:100%}
+#topo{grid-column:1 / span 3;display:flex;align-items:center;gap:8px;padding:0 10px;background:#0d0a08;border-bottom:1px solid var(--borda)}
+#topo h1{font:600 15px Georgia,serif;letter-spacing:.06em;color:var(--ouro-claro);margin:0 12px 0 0}
+#topo .nome{font:12px "Lucida Console",monospace;color:var(--fraco)}
+#topo .espaco{flex:1}
+#etapas{grid-row:2 / span 2;background:var(--painel);border-right:1px solid var(--borda);padding:8px;display:flex;flex-direction:column;gap:4px}
+#etapas button{text-align:left;padding:8px 10px}
+#etapas .num{display:inline-block;width:18px;color:var(--fraco);font:11px "Lucida Console",monospace}
+#etapas button.ativo .num{color:#1a120a}
+#area{position:relative;overflow:hidden;background:radial-gradient(70% 60% at 50% 55%,#2a2119,#0b0907 75%)}
+#area canvas{position:absolute;left:0;top:0;width:100%;height:100%;display:block}
+#sob{pointer-events:none} #sobre{pointer-events:none}
+#gl{cursor:crosshair}
+#vistas{position:absolute;left:10px;top:10px;display:flex;gap:3px;z-index:2}
+#infoVista{position:absolute;left:10px;bottom:8px;font:12px "Lucida Console",monospace;color:var(--fraco);z-index:2;pointer-events:none}
+#previaQuadro{position:absolute;inset:0;border:0;width:100%;height:100%;background:#0e0b08;z-index:3}
+#lado{grid-row:2 / span 2;grid-column:3;background:var(--painel);border-left:1px solid var(--borda);overflow-y:auto;padding:8px 10px 20px}
+#status{grid-column:2;background:#0d0a08;border-top:1px solid var(--borda);color:var(--fraco);
+  font:12px/30px "Lucida Console",monospace;padding:0 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#status b{color:var(--texto);font-weight:normal}
+h2{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ouro);
+  margin:14px 0 6px;border-bottom:1px solid var(--borda);padding-bottom:3px}
+h2:first-child{margin-top:2px}
+.linha{display:flex;gap:4px;flex-wrap:wrap;align-items:center;margin:4px 0}
+.linha label{color:var(--fraco)}
+button{background:#2e241b;color:var(--texto);border:1px solid var(--borda);border-radius:3px;
+  padding:4px 7px;font:inherit;cursor:pointer}
+button:hover{border-color:var(--ouro)}
+button:disabled{opacity:.45;cursor:default}
+button.ativo{background:var(--ouro);color:#1a120a;border-color:var(--ouro-claro)}
+button.forte{border-color:var(--ouro);color:var(--ouro-claro)}
+button kbd{font:10px "Lucida Console",monospace;opacity:.6;margin-left:3px}
+.grupo{display:grid;gap:3px}
+.g2{grid-template-columns:1fr 1fr} .g3{grid-template-columns:1fr 1fr 1fr} .g4{grid-template-columns:repeat(4,1fr)}
+input[type=text],input[type=number],select{background:var(--campo);color:var(--texto);
+  border:1px solid var(--borda);border-radius:3px;padding:3px 5px;font:inherit;min-width:0}
+input[type=number]{width:62px}
+input[type=range]{flex:1;accent-color:var(--ouro);min-width:80px}
+input[type=checkbox]{accent-color:var(--ouro)}
+.valor{font:12px "Lucida Console",monospace;color:var(--ouro-claro);min-width:44px;text-align:right}
+.dica{color:var(--fraco);font-size:12px;margin:3px 0}
+.rotulo{min-width:74px;color:var(--fraco)}
+#paleta{display:grid;grid-template-columns:repeat(9,1fr);gap:2px}
+#paleta div{height:20px;border:1px solid #0008;border-radius:2px;cursor:pointer}
+#paleta div.ativo{outline:2px solid var(--ouro-claro);outline-offset:1px}
+.lista{max-height:260px;overflow-y:auto;font-size:12px;border:1px solid var(--borda);border-radius:3px;background:var(--campo)}
+.lista div{padding:3px 6px;cursor:pointer;border-bottom:1px solid #2a211a}
+.lista div:hover{background:#3a2c1c}
+.lista div.ativo{background:#4a3820;color:var(--ouro-claro)}
+.erro{color:#f08070} .aviso{color:var(--ouro-claro)} .ok{color:var(--bom)}
+#quadros{display:flex;flex-wrap:wrap;gap:3px}
+#quadros button{min-width:34px}
+.juntaLinha{display:grid;grid-template-columns:78px repeat(3,1fr);gap:3px;align-items:center;margin:2px 0}
+.juntaLinha input{width:100%}
+.juntaLinha span{font:11px "Lucida Console",monospace;color:var(--fraco);cursor:pointer}
+.juntaLinha.ativo span{color:var(--ouro-claro)}
+#selo{font:12px "Lucida Console",monospace;padding:3px 8px;border-radius:3px;border:1px solid var(--borda)}
+#selo.ok{border-color:var(--bom)} #selo.erro{border-color:var(--perigo)}
+details summary{cursor:pointer;color:var(--fraco);margin:6px 0}
+.atalhos{font:12px/1.6 "Lucida Console",monospace;color:var(--fraco)}
+.atalhos b{color:var(--texto);font-weight:normal;display:inline-block;min-width:100px}
+#soltar{position:absolute;inset:0;border:3px dashed var(--ouro);background:#c8963c22;z-index:5;
+  display:flex;align-items:center;justify-content:center;font-size:18px;pointer-events:none}
+#faixa{position:absolute;left:60px;right:12px;top:10px;background:#3a2c1c;border:1px solid var(--ouro);
+  border-radius:4px;padding:8px 10px;display:flex;gap:8px;align-items:center;z-index:4}
+#faixa span{flex:1}
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="topo">
+    <h1>Ateli&#xea;</h1>
+    <span class="nome" id="nomeProjeto">sem projeto</span>
+    <span id="sujo" class="aviso" hidden>&bull; n&#xe3;o salvo</span>
+    <span class="espaco"></span>
+    <label id="rotuloResolucao" title="Ver o mesmo personagem em outra quantidade de voxels. Em 165 ou 256 so se olha e se anima; para esculpir, mexer no rig e no peso, validar e exportar, volte para 117. So os projetos que guardam a fonte de alta resolucao (feitos a partir de um modelo de alta resolucao) tem as outras."><select id="resolucao"><option value="117">117 voxels</option><option value="165">165 voxels</option><option value="256">256 voxels</option></select></label>
+    <button id="btnAbrir" title="Abre um projeto .atelie, uma .pele, ou importa um modelo em T-pose (.wgvox, .vox, .personagem)">Abrir ou importar&hellip;</button>
+    <button id="btnExemplo" title="Um corpo de c&#xe1;psulas em T-pose, para experimentar">Corpo de exemplo</button>
+    <button id="btnSalvar">Salvar<kbd>Ctrl+S</kbd></button>
+    <span id="selo" title="Resultado da &#xfa;ltima valida&#xe7;&#xe3;o">n&#xe3;o validado</span>
+    <input type="file" id="entrada" accept=".atelie,.pele,.wgvox,.vox,.personagem" hidden>
+    <input type="file" id="entradaCaptura" accept=".bvh,.json" hidden>
+    <input type="file" id="entradaImagem" accept="image/*" hidden>
+  </div>
+
+  <nav id="etapas" aria-label="Etapas">
+    <button data-etapa="esculpir"><span class="num">1</span>Esculpir</button>
+    <button data-etapa="rig"><span class="num">2</span>Rig</button>
+    <button data-etapa="peso"><span class="num">3</span>Peso de osso</button>
+    <button data-etapa="animar"><span class="num">4</span>Animar</button>
+    <button data-etapa="previa"><span class="num">5</span>Pr&#xe9;via do jogo</button>
+    <button data-etapa="exportar"><span class="num">6</span>Validar e exportar</button>
+    <div class="dica" style="margin-top:auto">O corpo mora em T-pose. As poses s&#xe3;o giro por osso a partir dela, e o jogo recebe cada quadro j&#xe1; posado.</div>
+  </nav>
+
+  <div id="area">
+    <canvas id="sob"></canvas>
+    <canvas id="gl"></canvas>
+    <canvas id="sobre"></canvas>
+    <div id="vistas">
+      <button data-vista="livre">3D<kbd>0</kbd></button>
+      <button data-vista="frente">Frente<kbd>1</kbd></button>
+      <button data-vista="lado">Lado<kbd>2</kbd></button>
+      <button data-vista="costas">Costas<kbd>3</kbd></button>
+      <button data-vista="cima">Cima<kbd>4</kbd></button>
+    </div>
+    <div id="infoVista"></div>
+    <div id="faixa" hidden><span id="faixaTexto"></span><button id="faixaSim">Recuperar</button><button id="faixaNao">Descartar</button></div>
+    <iframe id="previaQuadro" title="Pr&#xe9;via com o assador do jogo" hidden></iframe>
+    <div id="soltar" hidden>Solte o projeto, o modelo, a captura ou a imagem de refer&#xea;ncia</div>
+  </div>
+
+  <aside id="lado">
+    <!-- 1. ESCULPIR -->
+    <section data-painel="esculpir">
+      <h2>Pincel de voxel</h2>
+      <div class="grupo g4" id="ferramentas">
+        <button data-ferr="por">P&#xf4;r<kbd>A</kbd></button>
+        <button data-ferr="tirar">Tirar<kbd>X</kbd></button>
+        <button data-ferr="pintar">Pintar<kbd>P</kbd></button>
+        <button data-ferr="balde">Balde<kbd>F</kbd></button>
+      </div>
+      <div class="linha"><span class="rotulo">tamanho</span><input type="range" id="raioVoxel" min="0" max="8" step="1" value="1"><span class="valor" id="raioVoxelV"></span></div>
+      <div class="linha"><label><input type="checkbox" id="espelhoVoxel" checked> espelho E/D</label>
+        <span class="dica">Alt+clique pega a cor</span></div>
+      <h2>Cor <span class="valor" id="coresN"></span></h2>
+      <div id="paleta"></div>
+      <div class="linha"><input type="color" id="corNova" value="#8a6a40"><button id="btnCorNova">Nova cor</button><button id="btnCorTrocar">Trocar a cor escolhida</button></div>
+      <h2>Refer&#xea;ncia</h2>
+      <div class="dica">Uma imagem por vista, de p&#xe9; no plano do corpo, da sola ao topo da cabe&#xe7;a. Desenhe em T-pose, com largura para o bra&#xe7;o esticado.</div>
+      <div class="grupo g3">
+        <button data-ref="frente">Frente&hellip;</button><button data-ref="lado">Lado&hellip;</button><button data-ref="costas">Costas&hellip;</button>
+      </div>
+      <div class="linha"><span class="rotulo">opacidade</span><input type="range" id="opacRef" min="0" max="1" step="0.05" value="0.5"></div>
+      <h2>Limpeza</h2>
+      <div class="grupo g2">
+        <button id="btnRuido" title="Voxel de superf&#xed;cie com cor que nenhum vizinho tem vira a cor dos vizinhos">Tirar salpicado</button>
+        <button id="btnSolido" title="Enche o que est&#xe1; oco por dentro">Encher o oco</button>
+      </div>
+      <div class="dica" id="infoCorpo"></div>
+    </section>
+
+    <!-- 2. RIG -->
+    <section data-painel="rig" hidden>
+      <h2>Esqueleto</h2>
+      <div class="grupo g2">
+        <button id="btnProporRig" class="forte" title="L&#xea; a silhueta em T-pose e prop&#xf5;e as 13 juntas">Propor pelo corpo</button>
+        <button id="btnSimetrizar" title="M&#xe9;dia dos dois lados espelhados">Simetrizar</button>
+      </div>
+      <div class="linha"><label><input type="checkbox" id="espelhoRig" checked> arrastar espelha E/D</label></div>
+      <div id="avisosRig" class="dica"></div>
+      <div class="dica">Arraste uma junta na vista: ela anda no plano da tela. Em Frente e Lado d&#xe1; para acertar cada eixo.</div>
+      <div id="listaJuntas"></div>
+      <h2>Comprimentos</h2>
+      <div id="comprimentos" class="dica"></div>
+    </section>
+
+    <!-- 3. PESO -->
+    <section data-painel="peso" hidden>
+      <h2>Osso</h2>
+      <div class="lista" id="listaOssos"></div>
+      <div class="dica">Clique no corpo com Alt para escolher o osso que manda ali.</div>
+      <h2>Pincel de peso</h2>
+      <div class="grupo g3" id="modosPeso">
+        <button data-peso="somar">Somar</button><button data-peso="tirar">Tirar</button><button data-peso="suavizar">Suavizar</button>
+      </div>
+      <div class="linha"><span class="rotulo">tamanho</span><input type="range" id="raioPeso" min="1" max="10" step="1" value="3"><span class="valor" id="raioPesoV"></span></div>
+      <div class="linha"><span class="rotulo">for&#xe7;a</span><input type="range" id="forcaPeso" min="0.05" max="1" step="0.05" value="0.3"><span class="valor" id="forcaPesoV"></span></div>
+      <div class="linha"><label><input type="checkbox" id="espelhoPeso" checked> espelho E/D</label></div>
+      <h2>Autom&#xe1;tico</h2>
+      <div class="linha"><label title="Capa, manga larga e saia: o que est&#xe1; longe do bra&#xe7;o ou atr&#xe1;s do tronco segue s&#xf3; a bacia e o tronco, e n&#xe3;o se estica quando o bra&#xe7;o ou a perna mexe"><input type="checkbox" id="panoPeso"> pano (capa, saia) n&#xe3;o segue bra&#xe7;o nem perna</label></div>
+      <div class="dica">Dist&#xe2;ncia geod&#xe9;sica (andando por dentro do corpo) at&#xe9; cada osso; os dois ossos pai e filho mais perto repartem o voxel numa faixa em volta da junta. O que foi pintado &#xe0; m&#xe3;o fica.</div>
+      <div id="larguras"></div>
+      <div class="grupo g2">
+        <button id="btnPesos" class="forte">Recalcular</button>
+        <button id="btnDestravar" title="O pr&#xf3;ximo c&#xe1;lculo vale para o corpo inteiro">Esquecer o pintado</button>
+      </div>
+      <h2>Testar numa pose</h2>
+      <div class="dica">Pinta em T-pose; veja o efeito posado. As poses mais extremas s&#xe3;o as que abrem fresta.</div>
+      <div class="linha"><select id="poseTestePeso"></select><button id="btnVerPosado">Ver posado</button></div>
+    </section>
+
+    <!-- 4. ANIMAR -->
+    <section data-painel="animar" hidden>
+      <h2>Anima&#xe7;&#xe3;o</h2>
+      <div class="linha"><select id="selAnimacao"></select><button id="btnTocar">Tocar</button></div>
+      <div id="quadros"></div>
+      <div class="grupo g3" style="margin-top:6px">
+        <button id="btnCopiarPose">Copiar</button><button id="btnColarPose">Colar</button><button id="btnEspelharPose" title="Troca E por D">Espelhar</button>
+        <button id="btnRepousoPose">Parado</button><button id="btnEntrePose" title="Mistura o quadro anterior com o seguinte">Entre vizinhos</button>
+        <button id="btnCiclo" title="A segunda metade vira a primeira espelhada">Ciclo espelhado</button>
+      </div>
+      <h2>Osso <span class="valor" id="ossoAnimNome"></span></h2>
+      <div class="lista" id="listaOssosAnim" style="max-height:140px"></div>
+      <div class="dica">&#xc2;ngulos a partir do parado. Arraste m&#xe3;o ou p&#xe9; na vista para dobrar o bra&#xe7;o ou a perna sozinho.</div>
+      <div class="linha"><span class="rotulo">frente/tr&#xe1;s</span><input type="range" id="angX" min="-180" max="180" step="1"><input type="number" id="angXn" step="1"></div>
+      <div class="linha"><span class="rotulo">abrir</span><input type="range" id="angY" min="-180" max="180" step="1"><input type="number" id="angYn" step="1"></div>
+      <div class="linha"><span class="rotulo">torcer</span><input type="range" id="angZ" min="-180" max="180" step="1"><input type="number" id="angZn" step="1"></div>
+      <h2>Bacia</h2>
+      <div class="linha"><span class="rotulo">lado</span><input type="range" id="raizX" min="-15" max="15" step="0.5"><span class="valor" id="raizXv"></span></div>
+      <div class="linha"><span class="rotulo">frente</span><input type="range" id="raizY" min="-15" max="15" step="0.5"><span class="valor" id="raizYv"></span></div>
+      <div class="linha"><span class="rotulo">altura</span><input type="range" id="raizZ" min="-40" max="30" step="0.5"><span class="valor" id="raizZv"></span></div>
+      <div class="linha"><button id="btnChao" title="Desce ou sobe a bacia at&#xe9; o p&#xe9; mais baixo tocar o ch&#xe3;o">P&#xe9; no ch&#xe3;o</button></div>
+      <h2>Captura de movimento</h2>
+      <div class="dica">BVH, JSON de posi&#xe7;&#xf5;es ou JSON de rota&#xe7;&#xe3;o (tipo SMPL). O &#xe2;ngulo vem da captura, o comprimento do osso &#xe9; o do rig.</div>
+      <div class="linha"><button id="btnCaptura">Importar captura&hellip;</button><span class="dica" id="infoCaptura"></span></div>
+      <div id="opcoesCaptura" hidden>
+        <div class="dica">Andar e correr: o ciclo &#xe9; achado sozinho, come&#xe7;ando na passada mais aberta, e a segunda metade &#xe9; a primeira espelhada. A&#xe7;&#xf5;es: diga os quadros da captura (o pulo sem quadro pega o alto do salto). Cada quadro &#xe9; encaixado na grade e, se preciso, amortecido: primeiro as pernas, depois o corpo, e os bra&#xe7;os pela arma.</div>
+        <div class="linha"><span class="rotulo">quadros</span><input type="text" id="capQuadros" placeholder="ex.: 450,525" style="width:110px"><span class="dica">vazio: autom&#xe1;tico</span></div>
+        <div class="linha"><span class="rotulo">fase</span><input type="number" id="capFase" value="0" min="0" max="1" step="0.0625"><span class="dica">do ciclo, depois da passada aberta</span></div>
+        <div class="linha"><label><input type="checkbox" id="capEspelhar"> espelhar</label><label><input type="checkbox" id="capAssimetrico"> ciclo sem espelho</label><label><input type="checkbox" id="capCru"> sem encaixe</label></div>
+        <div class="linha"><button id="btnAplicarCaptura" class="forte">P&#xf4;r nesta anima&#xe7;&#xe3;o</button></div>
+        <div class="dica" id="infoAplicada"></div>
+      </div>
+      <h2>Quadro</h2>
+      <div id="checagemQuadro" class="dica"></div>
+      <div class="linha"><button id="btnPosesEscritas" title="As poses escritas no ateli&#xea; (escritas.js) para esta anima&#xe7;&#xe3;o">Poses escritas</button><button id="btnPosesAntigas" title="Volta esta anima&#xe7;&#xe3;o para as poses que o jogo tinha antes do ateli&#xea;">Poses antigas do jogo</button><button id="btnEncaixar" title="Move a bacia na horizontal o m&#xed;nimo para o quadro caber na grade 80x56x117">Caber na grade</button></div>
+    </section>
+
+    <!-- 5. PREVIA -->
+    <section data-painel="previa" hidden>
+      <h2>Assar com o jogo</h2>
+      <div class="dica">O mesmo assador, paleta, luz e pe&#xe7;as do jogo (src/p3e.js), nos oito rumos.</div>
+      <div class="linha"><span class="rotulo">quadros</span><select id="previaQuais"></select></div>
+      <div id="previaPecas"></div>
+      <div class="linha"><span class="rotulo">escala</span><select id="previaEscala"><option value="1">1x</option><option value="2" selected>2x</option><option value="3">3x</option></select></div>
+      <div class="linha"><button id="btnAssar" class="forte">Assar</button><span class="dica" id="infoPrevia"></span></div>
+    </section>
+
+    <!-- 6. EXPORTAR -->
+    <section data-painel="exportar" hidden>
+      <h2>Valida&#xe7;&#xe3;o</h2>
+      <div class="dica">Em todos os quadros do jogo: voxel fora da grade, peda&#xe7;o solto maior que 20 voxels, volume mudando mais de 15%, silhueta mais larga que parado, pele inchando, peso entre ossos que n&#xe3;o s&#xe3;o vizinhos, paleta grande demais.</div>
+      <div class="linha"><button id="btnValidar" class="forte">Validar</button><span class="dica" id="infoValidar"></span></div>
+      <div class="lista" id="listaValidacao" style="max-height:340px"></div>
+      <h2>Exportar</h2>
+      <div class="dica">personagens/humano.personagem &#xe9; o que o jogo l&#xea; (os 20 quadros j&#xe1; posados). A .pele leva o corpo com peso de osso e as poses em giro, para o dia em que o jogo fizer a pele sozinho. Depois: <code>node mundo-perigoso/build.js</code>.</div>
+      <div class="grupo g2">
+        <button id="btnExportar" class="forte">Gravar .personagem</button>
+        <button id="btnExportarPele">Gravar .pele</button>
+      </div>
+      <div class="linha"><label><input type="checkbox" id="exportarComErro"> exportar mesmo com erro</label></div>
+      <details>
+        <summary>Atalhos</summary>
+        <div class="atalhos">
+          <div><b>arrastar</b>girar a vista (3D)</div>
+          <div><b>bot&#xe3;o direito</b>arrastar a vista</div>
+          <div><b>roda</b>zoom</div>
+          <div><b>0 a 4</b>3D, frente, lado, costas, cima</div>
+          <div><b>[ ]</b>tamanho do pincel</div>
+          <div><b>Ctrl+Z / Ctrl+Y</b>desfazer / refazer</div>
+          <div><b>Ctrl+S</b>salvar</div>
+          <div><b>, .</b>quadro anterior / seguinte</div>
+          <div><b>espa&#xe7;o</b>tocar a anima&#xe7;&#xe3;o</div>
+        </div>
+      </details>
+    </section>
+  </aside>
+
+  <div id="status">abra um modelo em T-pose ou um projeto</div>
+</div>
+
+<script src="nucleo.js"></script>
+<script src="corpo.js"></script>
+<script src="rig.js"></script>
+<script src="pesos.js"></script>
+<script src="resolucao.js"></script>
+<script src="deformar.js"></script>
+<script src="animacao.js"></script>
+<script src="encaixe.js"></script>
+<script src="escritas.js"></script>
+<script src="captura.js"></script>
+<script src="validar.js"></script>
+<script src="arquivos.js"></script>
+<script src="vista.js"></script>
+<script src="painel.js"></script>
+</body>
+</html>

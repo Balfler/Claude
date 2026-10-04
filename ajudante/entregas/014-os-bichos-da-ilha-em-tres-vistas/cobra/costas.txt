@@ -1,0 +1,6 @@
+Pixel art sprite character turnaround sheet of a fantasy snake serpent, showing three full-body views side by side on a single horizontal sheet: FRONT VIEW, LEFT PROFILE SIDE VIEW (facing left), and BACK VIEW. Scaled serpent with mottled olive-green and earthy brown scale pattern, pale yellow underside belly scales, body coiled at the base, upper neck and head raised alertly, yellow slit eyes, forked tongue. Authentic 1993 PC RPG pixel art aesthetic: clean pixel clusters, crisp dark contour outlines, limited color palette, strictly flat solid neutral light gray background (#C0C0C0), absolutely no floor shadow, no drop shadow, isolated sprite turnaround. Coiled alert pose, exact same height, same body proportions, same markings and colors across all three views. Reference style: humano-3-vistas-1.
+
+Origem no projeto: PLANEJAMENTO.md: linha 270 ("bichos da ilha: rato, lobo, cobra, caranguejo").
+Vista: COSTAS
+Detalhes: Vista traseira (Back View): cobra vista por trás, padrão escamoso dorsal em tons verde-oliva e marrom.
+Estilo: Pixel art 1993, contorno escuro, paleta curta, fundo liso cinza (#C0C0C0), sem sombra no chao.

@@ -1,0 +1,5 @@
+LUGAR: Taverna por dentro
+CITAÇÃO: DESIGN.md linhas 281, 389, 408, 1438, 1455, 1587
+RESOLUÇÃO: 640x360 pixels
+ESTILO: 1993 PC DOS RPG raycasting pixel art, visão na altura do olho
+DESCRIÇÃO: Interior acolhedor da taverna de Celeste, paredes de tabuado de madeira escura, mesas pesadas de carvalho, lareira crepitante, canecas de cerveja e mapa na parede.

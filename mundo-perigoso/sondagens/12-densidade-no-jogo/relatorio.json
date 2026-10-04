@@ -1,0 +1,63 @@
+{
+ "arquivo": {
+  "256": {
+   "texto_MB": 20.34,
+   "gzip_MB": 6.39
+  },
+  "117 (do atelie)": {
+   "texto_MB": 2.56,
+   "gzip_MB": 0.91
+  }
+ },
+ "densidades": {
+  "117": {
+   "reamostrar_s": 1.3,
+   "grade": "80x56x117",
+   "assar_um_visual_s": 2.4,
+   "sprites_de_um_visual_MB": 1.88,
+   "quadro_ms": {
+    "640x360": 14.8,
+    "960x540": 21.3,
+    "1280x720": 37.1
+   }
+  },
+  "165": {
+   "reamostrar_s": 1.8,
+   "grade": "113x79x165",
+   "assar_um_visual_s": 5.1,
+   "sprites_de_um_visual_MB": 3.73,
+   "quadro_ms": {
+    "640x360": 15.9,
+    "960x540": 25,
+    "1280x720": 38
+   }
+  },
+  "256": {
+   "grade": "175x123x256",
+   "assar_um_visual_s": 13.1,
+   "sprites_de_um_visual_MB": 9.39,
+   "quadro_ms": {
+    "640x360": 12.4,
+    "960x540": 16.6,
+    "1280x720": 29.1
+   }
+  },
+  "117-atelie": {
+   "grade": "80x56x117",
+   "assar_um_visual_s": 2.2,
+   "sprites_de_um_visual_MB": 1.88,
+   "quadro_ms": {
+    "640x360": 13.3,
+    "960x540": 25.3,
+    "1280x720": 38
+   }
+  }
+ },
+ "ler256_s": 2.8,
+ "cenario_na_frente": 23,
+ "cena_sem_guerreiros_ms": {
+  "640x360": 7.4,
+  "960x540": 18.5,
+  "1280x720": 28.4
+ }
+}

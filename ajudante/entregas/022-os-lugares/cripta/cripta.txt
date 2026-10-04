@@ -1,0 +1,5 @@
+LUGAR: A Cripta de Vhalgorn
+CITAÇÃO: DESIGN.md linhas 4, 8, 493, 598-605, 762-782, 1397, 1591
+RESOLUÇÃO: 640x360 pixels
+ESTILO: 1993 PC DOS RPG raycasting pixel art, visão na altura do olho
+DESCRIÇÃO: Corredores góticos com arcos de pedra úmida, tochas de parede, caldeira com lago de lava incandescente aberta para o teto e céu noturno com lua avermelhada.

@@ -1,0 +1,5 @@
+LUGAR: A Gruta do mirante
+CITAÇÃO: DESIGN.md linhas 355-356, 638, 709, 1675
+RESOLUÇÃO: 640x360 pixels
+ESTILO: 1993 PC DOS RPG raycasting pixel art, visão na altura do olho
+DESCRIÇÃO: Caverna natural esculpida no coração da serra, estalactites rochosas, poço de luz descendo do teto e mirante com vista panorâmica para o vale e o rio.

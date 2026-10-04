@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Canteiro</title>
+<style>
+:root{
+  --fundo:#15110d; --painel:#221b15; --borda:#3a2e22; --texto:#e6d8c0; --fraco:#9c8b72;
+  --ouro:#c8963c; --ouro-claro:#e8b860; --perigo:#d0503a; --bom:#7fb069; --campo:#110d0a;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{height:100%;margin:0;background:var(--fundo);color:var(--texto);
+  font:13px/1.35 "Segoe UI",system-ui,sans-serif;overflow:hidden}
+#app{display:grid;grid-template-columns:1fr 280px;grid-template-rows:38px 1fr 26px;height:100%}
+#topo{grid-column:1 / span 2;display:flex;align-items:center;gap:8px;padding:0 10px;
+  background:#0d0a08;border-bottom:1px solid var(--borda)}
+#topo h1{font:600 15px Georgia,serif;letter-spacing:.06em;color:var(--ouro-claro);margin:0 10px 0 0}
+#topo .nome{font:12px "Lucida Console",monospace;color:var(--fraco)}
+#topo .espaco{flex:1}
+#area{position:relative;overflow:hidden;background:#0b0907;display:flex;align-items:center;justify-content:center}
+#screen{display:block;image-rendering:pixelated;background:#000;cursor:crosshair}
+#mapa2d{position:absolute;left:0;top:0;width:100%;height:100%;display:block;cursor:crosshair}
+.g3{grid-template-columns:1fr 1fr 1fr}
+.amostra{display:flex;align-items:center;gap:6px;padding:3px 5px;border:1px solid var(--borda);
+  border-radius:3px;cursor:pointer;background:#1b1510;font-size:12px}
+.amostra:hover{border-color:var(--ouro)}
+.amostra.ativo{border-color:var(--ouro-claro);background:#3a2c1c}
+.amostra .cor{width:14px;height:14px;border-radius:2px;flex:none;border:1px solid #0006}
+select,input[type=text],input[type=number]{background:var(--campo);color:var(--texto);
+  border:1px solid var(--borda);border-radius:3px;padding:3px 5px;font:inherit;min-width:0}
+input[type=number]{width:66px}
+input[type=range]{flex:1;accent-color:var(--ouro);min-width:70px}
+#lado{grid-row:2 / span 2;grid-column:2;background:var(--painel);border-left:1px solid var(--borda);
+  overflow-y:auto;padding:8px 10px 20px}
+#status{grid-column:1;background:#0d0a08;border-top:1px solid var(--borda);color:var(--fraco);
+  font:12px/26px "Lucida Console",monospace;padding:0 10px;white-space:nowrap;overflow:hidden}
+#status b{color:var(--texto);font-weight:normal}
+h2{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ouro);
+  margin:14px 0 6px;border-bottom:1px solid var(--borda);padding-bottom:3px}
+h2:first-child{margin-top:2px}
+button{background:#2e241b;color:var(--texto);border:1px solid var(--borda);border-radius:3px;
+  padding:4px 7px;font:inherit;cursor:pointer}
+button:hover{border-color:var(--ouro)}
+button.ativo{background:var(--ouro);color:#1a120a;border-color:var(--ouro-claro)}
+button kbd{font:10px "Lucida Console",monospace;opacity:.6;margin-left:4px}
+button.ativo kbd{opacity:.85}
+.grupo{display:grid;gap:3px}
+.g2{grid-template-columns:1fr 1fr}
+.linha{display:flex;gap:4px;flex-wrap:wrap;align-items:center;margin:4px 0}
+.dica{color:var(--fraco);font-size:12px;margin:4px 0}
+.atalhos{font:12px/1.55 "Lucida Console",monospace;color:var(--fraco)}
+.atalhos b{color:var(--texto);font-weight:normal;display:inline-block;min-width:74px}
+/* o catalogo: a barra de nove, as categorias e a grade de miniaturas */
+#barra{display:grid;grid-template-columns:repeat(9,1fr);gap:2px}
+#barra .casa{position:relative;padding:0;aspect-ratio:1;background:#1b1510;overflow:hidden}
+#barra .casa.ativo{border-color:var(--ouro-claro);box-shadow:0 0 0 1px var(--ouro-claro);background:#3a2c1c}
+#barra .num{position:absolute;left:2px;top:0;font:9px "Lucida Console",monospace;color:var(--fraco)}
+#barra canvas,#gradePecas canvas{display:block;width:100%;height:auto;aspect-ratio:1;image-rendering:pixelated}
+#buscaPeca{width:100%;margin:6px 0 4px}
+#categorias{display:flex;flex-wrap:wrap;gap:2px;margin-bottom:4px}
+#categorias button{padding:2px 6px;font-size:11px}
+#gradePecas{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;max-height:44vh;overflow-y:auto;padding-right:2px}
+#gradePecas .item{border:1px solid var(--borda);border-radius:3px;background:#1b1510;padding:2px 2px 3px;cursor:pointer;
+  text-align:center;font-size:10px;line-height:1.15;color:var(--fraco)}
+#gradePecas .item:hover{border-color:var(--ouro)}
+#coisaCampos label{display:grid;grid-template-columns:78px 1fr;gap:4px;align-items:center;font-size:12px;color:var(--fraco)}
+#coisaCampos input[type=text],#coisaCampos select{width:100%}
+#gradePecas .item.ativo{border-color:var(--ouro-claro);background:#3a2c1c;color:var(--texto)}
+/* os problemas da validacao */
+#contaProblemas{font:11px "Lucida Console",monospace;letter-spacing:0;text-transform:none;margin-left:6px}
+#contaProblemas .erro{color:var(--perigo)}
+#contaProblemas .ok{color:var(--bom)}
+#listaProblemas{list-style:none;margin:4px 0 0;padding:0;max-height:32vh;overflow-y:auto}
+#listaProblemas li{padding:3px 6px;border-left:3px solid var(--ouro);margin-bottom:2px;cursor:pointer;
+  font-size:12px;background:#1b1510;border-radius:0 3px 3px 0}
+#listaProblemas li:hover{background:#2a2017}
+#listaProblemas li.erro{border-left-color:var(--perigo)}
+#listaProblemas li.velho{opacity:.5}
+#listaProblemas .onde{font:11px "Lucida Console",monospace;color:var(--fraco)}
+#nomeNoJogo{width:110px}
+#faixa{position:absolute;left:12px;top:12px;right:12px;background:#3a2c1c;border:1px solid var(--ouro);
+  border-radius:4px;padding:8px 10px;z-index:3}
+#soltar{position:absolute;inset:0;border:3px dashed var(--ouro);background:#c8963c22;z-index:4;
+  display:flex;align-items:center;justify-content:center;font-size:18px;pointer-events:none}
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="topo">
+    <h1>Canteiro</h1>
+    <button id="btnAbrir">Abrir</button>
+    <button id="btnSalvar">Salvar <kbd>^S</kbd></button>
+    <button id="btnSalvarComo" title="grava noutro arquivo">Salvar como</button>
+    <button id="btnNovo">Novo</button>
+    <span class="nome" id="arquivoNome">nenhum mapa aberto</span>
+    <span class="espaco"></span>
+    <button id="btnJogar">Ver no jogo <kbd>J</kbd></button>
+    <button id="btnAndar" class="ativo">Andar <kbd>N</kbd></button>
+    <button id="btnModo">Macro <kbd>Tab</kbd></button>
+  </div>
+  <div id="area">
+    <canvas id="screen" width="640" height="360" tabindex="0"></canvas>
+    <canvas id="mapa2d" hidden></canvas>
+    <div id="faixa" hidden></div>
+    <div id="soltar" hidden>solte o .mapa aqui</div>
+  </div>
+  <div id="lado">
+    <div id="blocoProblemas">
+      <h2>Problemas<span id="contaProblemas"></span></h2>
+      <div class="linha">
+        <button id="btnConferir" title="o formato, as liga&ccedil;&otilde;es e as pe&ccedil;as j&aacute; se conferem sozinhos; aqui entram o alcance andando e o pior quadro">Conferir tudo <kbd>F7</kbd></button>
+        <button id="btnExportar" title="confere tudo e, sem erro, grava na pasta mapas/ do jogo">Exportar</button>
+        <button id="btnPasta" title="a pasta mapas/ do jogo: as liga&ccedil;&otilde;es se conferem com todos os mapas dela, e o Exportar grava nela">Pasta</button>
+      </div>
+      <div class="linha"><label for="nomeNoJogo">nome no jogo</label><input type="text" id="nomeNoJogo" placeholder="ilha"><span class="dica" id="pastaInfo"></span></div>
+      <div class="dica" id="quadroInfo"></div>
+      <ol id="listaProblemas"></ol>
+    </div>
+    <div id="painelMacro" hidden>
+      <h2>Camada</h2>
+      <div id="camadas" class="grupo g3">
+        <button data-camada="terreno" class="ativo">Terreno <kbd>1</kbd></button>
+        <button data-camada="altura">Altura <kbd>2</kbd></button>
+        <button data-camada="teto">Teto <kbd>3</kbd></button>
+        <button data-camada="coisas">Coisas <kbd>4</kbd></button>
+        <button data-camada="regiao">Regi&otilde;es <kbd>5</kbd></button>
+      </div>
+      <h2>Ferramenta</h2>
+      <div id="ferramentas" class="grupo g2">
+        <button data-ferr="pincel" class="ativo">Pincel <kbd>B</kbd></button>
+        <button data-ferr="balde">Balde <kbd>F</kbd></button>
+        <button data-ferr="retangulo">Ret&acirc;ngulo <kbd>R</kbd></button>
+        <button data-ferr="rampa">Rampa <kbd>A</kbd></button>
+        <button data-ferr="traco">Tra&ccedil;o <kbd>T</kbd></button>
+        <button data-ferr="espalhar">Espalhar <kbd>E</kbd></button>
+        <button data-ferr="regua">R&eacute;gua <kbd>M</kbd></button>
+        <button data-ferr="ir">Ir at&eacute; l&aacute; <kbd>K</kbd></button>
+        <button data-ferr="lote">Lote: casa <kbd>H</kbd></button>
+        <button data-ferr="contagotas">Conta-gotas <kbd>I</kbd></button>
+        <button data-ferr="carimbo">Carimbo <kbd>C</kbd></button>
+        <button data-ferr="relevo">Relevo <kbd>O</kbd></button>
+        <button data-ferr="visao">Vista <kbd>V</kbd></button>
+      </div>
+      <div id="blocoRelevo" hidden>
+        <div class="linha"><label>For&ccedil;a</label><input type="range" id="relevoAmp" min="1" max="24" value="6"><span class="dica" id="relevoAmpTexto">6</span></div>
+        <div class="linha"><label>Tamanho</label><input type="range" id="relevoEsc" min="4" max="64" value="16"><span class="dica" id="relevoEscTexto">16</span></div>
+        <div class="linha"><label>Semente</label><input type="number" id="relevoSemente" min="1" value="1"><button id="btnSortearRelevo">Sortear</button></div>
+        <div class="linha"><label><input type="checkbox" id="relevoAndavel" checked> que se ande (um degrau por tile)</label></div>
+        <div class="dica">Arraste um ret&acirc;ngulo: morros de ru&iacute;do sobem no ch&atilde;o dele, somando ao relevo, e somem na beira. A mesma semente d&aacute; os mesmos morros.</div>
+      </div>
+      <div id="blocoVisao" hidden>
+        <div class="linha"><label>Olho</label><select id="visaoOlho"><option value="0.6">em p&eacute;</option><option value="3">no alto da torre</option><option value="8">voando</option></select></div>
+        <div class="dica" id="visaoInfo">Clique num tile: claro &eacute; o que se v&ecirc; dali at&eacute; 60 tiles, escuro o que o relevo e a rocha tapam.</div>
+      </div>
+      <div id="blocoCarimbo" hidden>
+        <div class="dica" id="carimboInfo">Arraste para copiar um peda&ccedil;o &mdash; ch&atilde;o, relevo, teto, coisas e pe&ccedil;as. Depois cada clique carimba, assentado na altura do tile.</div>
+        <div class="linha"><button id="btnGirarCarimbo">Girar <kbd>G</kbd></button><button id="btnLargarCarimbo">Largar <kbd>Esc</kbd></button></div>
+      </div>
+      <div id="blocoDensidade" hidden>
+        <div class="linha"><label>Densidade</label><input type="range" id="densidade" min="1" max="100" value="15"><span class="dica" id="densidadeTexto">15%</span></div>
+      </div>
+      <div class="linha"><button id="btnAlcance">Alcance <kbd>L</kbd></button>
+        <span class="dica">o ch&atilde;o sem caminho do in&iacute;cio do jogador, em vermelho</span></div>
+      <div class="linha"><label>Pincel</label><input type="range" id="tamPincel" min="1" max="25" value="3"><span class="dica" id="tamPincelTexto">3</span></div>
+      <div class="linha"><label>Largura do tra&ccedil;o</label><input type="range" id="largTraco" min="1" max="15" value="3"><span class="dica" id="largTracoTexto">3</span></div>
+      <div id="blocoLote" hidden>
+        <div class="linha"><label>Andares</label>
+          <select id="loteAndares"><option value="1">1</option><option value="2" selected>2</option></select>
+          <label>Frente</label>
+          <select id="loteFrente"><option value="sul">sul</option><option value="leste">leste</option><option value="norte">norte</option><option value="oeste">oeste</option></select>
+        </div>
+        <div class="linha"><label>Estilo</label><select id="loteEstilo"></select></div>
+        <div class="linha"><label><input type="checkbox" id="loteSacada" checked> sacada no andar de cima</label></div>
+        <div class="dica">Arraste o lote: o ch&atilde;o dele &eacute; nivelado e a casa sobe, com porta na frente, escada, janelas e telhado. Depois ela se mexe pe&ccedil;a por pe&ccedil;a no micro.</div>
+      </div>
+      <div id="blocoTeto" hidden>
+        <div class="linha"><label>Teto</label><input type="number" id="valorTeto" min="0" max="1295" value="5">
+          <span class="dica">degraus acima do ch&atilde;o; 0 &eacute; c&eacute;u aberto</span></div>
+      </div>
+      <div id="blocoAltura" hidden>
+        <div class="linha"><label>Altura</label>
+          <select id="modoAltura">
+            <option value="subir">subir um degrau</option>
+            <option value="descer">descer um degrau</option>
+            <option value="nivelar">nivelar em</option>
+            <option value="suavizar">suavizar</option>
+          </select>
+          <input type="number" id="valorAltura" min="0" max="1295" value="4">
+        </div>
+      </div>
+      <h2>Terreno</h2>
+      <div id="paletaTerreno" class="grupo g2"></div>
+      <h2>Coisas</h2>
+      <div class="linha"><select id="tipoCoisa"></select>
+        <input type="text" id="textoCoisa" placeholder="texto"></div>
+      <div id="blocoRegiao" hidden>
+        <h2>Regi&otilde;es</h2>
+        <div id="listaRegioes" class="grupo"></div>
+        <div class="linha"><button id="btnNovaRegiao">Nova regi&atilde;o</button></div>
+        <div class="linha"><label>Nome</label><input type="text" id="nomeRegiao" placeholder="Pedra Alta"></div>
+        <div class="linha"><label>Perigo</label><input type="number" id="perigoRegiao" min="0" max="9" value="0">
+          <label>M&uacute;sica</label><input type="text" id="musicaRegiao" placeholder="vila"></div>
+        <div class="linha"><label>Som</label><input type="text" id="somRegiao" placeholder="mar"></div>
+        <div class="dica">As regras de jogo do perigo, da m&uacute;sica e do som ainda n&atilde;o est&atilde;o decididas: aqui s&oacute; se guarda o dado.</div>
+      </div>
+      <div class="dica">Clique com a camada <b>Terreno</b> e a ferramenta <b>Espalhar</b> para mato; com <b>Ir at&eacute; l&aacute;</b>, o micro abre naquele ponto.</div>
+      <h2>Vista</h2>
+      <div id="vistaMacro" class="grupo g3">
+        <label><input type="checkbox" data-vista="grade" checked> grade</label>
+        <label><input type="checkbox" data-vista="relevo" checked> relevo</label>
+        <label><input type="checkbox" data-vista="curvas" checked> curvas</label>
+        <label><input type="checkbox" data-vista="coisas" checked> coisas</label>
+        <label><input type="checkbox" data-vista="pecas" checked> pe&ccedil;as</label>
+        <label><input type="checkbox" data-vista="alcance"> alcance</label>
+        <label title="quantos tiles se anda ate a coisa interessante mais perto: amarelo passa de 30, vermelho de 60 a 120 e alem"><input type="checkbox" data-vista="vazio"> vazio</label>
+      </div>
+      <div class="linha"><button id="btnRef">Imagem de refer&ecirc;ncia</button><button id="btnRefTirar" hidden>Tirar</button></div>
+      <div class="linha" id="blocoRef" hidden><label>Opacidade</label><input type="range" id="refOpac" min="0" max="100" value="45"></div>
+      <h2>Mapa</h2>
+      <div id="blocoMapa">
+        <div class="linha"><label>Nome</label><input type="text" id="mapaNome" style="flex:1"></div>
+        <div class="linha"><label>Mar</label><input type="number" id="mapaMar" min="0" max="1295">
+          <label><input type="checkbox" id="mapaSemMar"> sem mar (dungeon)</label></div>
+        <div class="linha"><label>Semente</label><input type="number" id="mapaSemente" min="1" placeholder="1">
+          <button id="btnSortearSemente" title="a semente sorteia qual passagem secreta de cada grupo vale">Sortear</button></div>
+        <div class="linha"><span class="dica" id="mapaTam"></span></div>
+        <div class="linha"><input type="number" id="redLarg" min="8" max="2048"> &times; <input type="number" id="redAlt" min="8" max="2048">
+          <select id="redAncora"><option value="centro">pelo centro</option><option value="canto">pelo canto</option></select>
+          <button id="btnRedimensionar">Redimensionar</button></div>
+        <div class="linha"><b>Novo</b> <input type="number" id="novoLarg" min="8" max="2048" value="200"> &times; <input type="number" id="novoAlt" min="8" max="2048" value="200">
+          <select id="novoTipo"><option value="ilha">ilha</option><option value="dungeon">dungeon</option></select>
+          <button id="btnCriar">Criar</button></div>
+      </div>
+    </div>
+    <div id="painelMicro">
+    <h2>Pe&ccedil;a</h2>
+    <div id="barra"></div>
+    <input type="text" id="buscaPeca" placeholder="procurar pe&ccedil;a (/)">
+    <div id="categorias"></div>
+    <div id="gradePecas"></div>
+    <h2>Estilo</h2>
+    <div id="estilos" class="grupo g2"></div>
+    <h2>Sele&ccedil;&atilde;o e modelo</h2>
+    <div class="linha">
+      <button id="btnCopiar">Copiar <kbd>^C</kbd></button>
+      <button id="btnColar">Colar <kbd>^V</kbd></button>
+      <button id="btnApagarSel">Apagar <kbd>Del</kbd></button>
+    </div>
+    <div class="linha">
+      <button id="btnSalvarModelo">Salvar modelo</button>
+      <button id="btnAbrirModelo">Abrir modelo</button>
+    </div>
+    <div class="dica">B marca um canto da caixa, B de novo o outro. Colando: R gira, F espelha, clique cola, Esc larga.</div>
+    <h2>Constru&ccedil;&atilde;o</h2>
+    <div class="linha"><span class="dica" id="construcaoAtual"></span></div>
+    <div class="linha">
+      <button id="btnNovaConstrucao">Nova constru&ccedil;&atilde;o</button>
+      <button id="btnTrocarEstilo">Trocar o estilo dela</button>
+    </div>
+    </div>
+    <div id="blocoCoisa" hidden>
+      <h2>Marco escolhido</h2>
+      <div class="linha"><b id="coisaNome"></b><span class="dica" id="coisaOnde"></span></div>
+      <div id="coisaCampos" class="grupo"></div>
+      <div class="linha"><button id="btnApagarCoisa">Apagar</button><button id="btnLargarCoisa">Largar</button></div>
+    </div>
+    <div id="blocoMarcoMicro">
+      <h2>Marco</h2>
+      <div class="linha"><select id="tipoMarco"></select><button id="btnPorMarco">P&ocirc;r na mira <kbd>M</kbd></button></div>
+    </div>
+    <h2>Atalhos</h2>
+    <div class="atalhos">
+      <div><b>Tab</b> macro / micro</div>
+      <div><b>WASD</b> andar</div>
+      <div><b>mouse</b> olhar</div>
+      <div><b>clique</b> p&ocirc;r pe&ccedil;a</div>
+      <div><b>clique dir.</b> tirar pe&ccedil;a</div>
+      <div><b>R / Shift+R</b> girar 90&deg;</div>
+      <div><b>T</b> girar 45&deg; (parede, cerca)</div>
+      <div><b>E</b> encaixe liga/desliga</div>
+      <div><b>Q, bot&atilde;o do meio</b> conta-gotas</div>
+      <div><b>V</b> estilo s&oacute; na pe&ccedil;a da mira</div>
+      <div><b>U</b> abrir / fechar porta, janela, grade</div>
+      <div><b>B, B</b> sele&ccedil;&atilde;o em caixa</div>
+      <div><b>M</b> p&ocirc;r o marco na mira</div>
+      <div><b>^C ^X ^V Del</b> copiar, recortar, colar, apagar</div>
+      <div><b>F</b> espelhar</div>
+      <div><b>1..9</b> casa da barra</div>
+      <div><b>/</b> procurar pe&ccedil;a</div>
+      <div><b>G</b> grade: 1/4, 1/2, 1</div>
+      <div><b>N</b> andar ou voar</div>
+      <div><b>Espa&ccedil;o</b> pular / subir</div>
+      <div><b>C</b> agachar / descer</div>
+      <div><b>Ctrl+Z / Y</b> desfazer</div>
+      <div><b>J</b> ver no jogo</div>
+      <div><b>F7</b> conferir tudo</div>
+      <div><b>Ctrl+S</b> salvar</div>
+    </div>
+  </div>
+  <div id="status"></div>
+</div>
+<input type="file" id="entradaArquivo" accept=".mapa,text/plain" hidden>
+<input type="file" id="entradaModelo" accept=".modelo,text/plain" hidden>
+<input type="file" id="entradaRef" accept="image/*" hidden>
+
+<!-- O motor do jogo, os mesmos arquivos de src/ que o build.js concatena.
+     O canteiro carrega ate p5.js: p5b.js, que e teclado, mouse e o laco do
+     jogo, fica de fora -- a ferramenta poe os dela por cima. -->
+<script>const MAPAS_EMBUTIDOS = {};</script>
+<script src="../src/mapa.js"></script>
+<script src="../src/ilha.js"></script>
+<script src="../src/cores.js"></script>
+<script src="../src/pintor.js"></script>
+<script src="../src/estilos.js"></script>
+<script src="../src/pecas.js"></script>
+<script src="../src/solidos.js"></script>
+<script src="../src/p2.js"></script>
+<script src="../src/p2b.js"></script>
+<script src="../src/p3.js"></script>
+<script src="../src/p3b.js"></script>
+<script src="../src/p3c.js"></script>
+<script src="../src/p3e.js"></script>
+<script src="../src/p3d.js"></script>
+<script src="../src/conversa.js"></script>
+<script src="../src/p4.js"></script>
+<script src="../src/p5a.js"></script>
+<script src="../src/p5.js"></script>
+<script src="../src/andar.js"></script>
+<script src="../editor/operacoes.js"></script>
+<script src="arquivos.js"></script>
+<script src="micro.js"></script>
+<script src="modelo.js"></script>
+<script src="lote.js"></script>
+<script src="planta.js"></script>
+<script src="olhar.js"></script>
+<script src="macro.js"></script>
+<script src="catalogo.js"></script>
+<script src="validacao.js"></script>
+<script src="alcance.js"></script>
+<script src="canteiro.js"></script>
+</body>
+</html>

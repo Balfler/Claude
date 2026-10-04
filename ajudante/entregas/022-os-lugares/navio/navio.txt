@@ -1,0 +1,5 @@
+LUGAR: O Navio no porto
+CITAÇÃO: DESIGN.md linhas 490, 709
+RESOLUÇÃO: 640x360 pixels
+ESTILO: 1993 PC DOS RPG raycasting pixel art, visão na altura do olho
+DESCRIÇÃO: Caravela de exploração ancorada nas águas calmas da enseada, mastros altos com cordames, convés de tábuas de pinho, canhões e vista da costa sob o vento da manhã.

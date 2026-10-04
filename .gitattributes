@@ -1,0 +1,12 @@
+# Fim de linha fixo no repositorio, para que as duas maquinas nao fiquem
+# gerando diferenca em arquivo que ninguem editou.
+* text=auto eol=lf
+
+# Scripts do Windows ficam com CRLF ao serem extraidos.
+*.ps1 text eol=crlf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+*.pdf binary
+*.png binary
+*.jpg binary

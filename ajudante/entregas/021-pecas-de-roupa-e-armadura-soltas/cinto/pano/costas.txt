@@ -1,0 +1,1 @@
+1993 pixel art: faixa de tecido amarrada com laço/nó sobre o humano base. DESIGN.md linhas 894, 945-946; src/p3e.js PECAS.roupa.camisa. [vista: costas]

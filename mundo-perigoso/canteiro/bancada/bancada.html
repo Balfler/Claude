@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Bancada de medi&#xe7;&#xe3;o</title>
+<style>
+html,body{margin:0;background:#0e0b08;color:#e6d8c0;font:13px/1.4 "Lucida Console",monospace}
+#topo{padding:8px 10px;border-bottom:1px solid #3a2e22;color:#c8963c}
+#saida{padding:8px 10px;white-space:pre-wrap}
+#palco{position:fixed;right:8px;bottom:8px;border:1px solid #3a2e22}
+#palco canvas{display:block;image-rendering:pixelated;width:640px;height:360px}
+</style>
+</head>
+<body>
+<!-- A bancada roda o jogo MONTADO (cripta-vhalgorn.html), o mesmo que se
+     publica, e mede cada pedaco do quadro em 640x360. Precisa de http:
+     o servidor "cripta" do .claude/launch.json serve a raiz do repositorio. -->
+<div id="topo">bancada de medi&#xe7;&#xe3;o &mdash; <span id="estado">carregando</span></div>
+<div id="saida"></div>
+<div id="palco"><div><canvas id="screen" width="640" height="360"></canvas></div></div>
+<script src="../../src/mapa.js"></script>
+<script src="cena.js"></script>
+<script src="bancada.js"></script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+LUGAR: A Montanha Oca
+CITAÇÃO: DESIGN.md linhas 360-362, 490
+RESOLUÇÃO: 640x360 pixels
+ESTILO: 1993 PC DOS RPG raycasting pixel art, visão na altura do olho
+DESCRIÇÃO: Vasto salão subterrâneo colossal cortado por abismos profundos, pontes naturais de pedra, rio subterrâneo, veios de minérios fluorescentes e rota secreta contornando a fortaleza.

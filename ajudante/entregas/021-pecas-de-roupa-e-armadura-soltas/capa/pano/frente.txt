@@ -1,0 +1,1 @@
+1993 pixel art: manto simples de tecido/linho caindo dos ombros sobre o humano base. DESIGN.md linhas 874, 945-946; src/p3e.js PECAS.capa. [vista: frente]

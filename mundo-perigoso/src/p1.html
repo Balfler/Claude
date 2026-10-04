@@ -1,0 +1,164 @@
+<title>A Cripta de Vhalgorn</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=VT323&display=swap">
+<style>
+  :root{
+    --void:#0a0806;
+    --pitch:#050403;
+    --stone:#171310;
+    --stone-hi:#241d17;
+    --brass:#c8963c;
+    --brass-dim:#7a5a22;
+    --blood:#8c1f14;
+    --rune:#5b8fd6;
+    --parchment:#d8ccb2;
+    --ash:#8d8172;
+    --edge:#3a2e22;
+    --display:"Cinzel",Georgia,"Times New Roman",serif;
+    --term:"VT323","Lucida Console",Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    background:var(--void);
+    color:var(--parchment);
+    font-family:var(--term);
+    min-height:100%;
+    display:flex;
+    justify-content:center;
+    padding:clamp(12px,3vw,36px) clamp(10px,3vw,28px) 56px;
+  }
+  /* a tela cresce por numeros inteiros ate onde a janela deixa; o texto em
+     volta continua na largura de leitura */
+  .cabinet{width:100%;display:flex;flex-direction:column;align-items:center;gap:18px}
+  .cabinet > .plate, .cabinet > .legend, .cabinet > .note{width:100%;max-width:900px}
+
+  /* ---- placa de titulo ---- */
+  .plate{display:flex;flex-direction:column;gap:6px;align-items:center;text-align:center}
+  .eyebrow{
+    font-family:var(--term);font-size:19px;letter-spacing:.34em;
+    color:var(--brass-dim);text-transform:uppercase;
+  }
+  h1{
+    font-family:var(--display);font-weight:700;
+    font-size:clamp(28px,6vw,52px);
+    letter-spacing:.06em;margin:0;text-wrap:balance;
+    color:var(--parchment);
+    text-shadow:0 0 22px rgba(200,150,60,.22);
+  }
+  .rule{
+    width:min(420px,80%);height:1px;margin-top:4px;
+    background:linear-gradient(90deg,transparent,var(--brass-dim),transparent);
+  }
+  .tagline{font-size:20px;color:var(--ash);letter-spacing:.06em}
+
+  /* ---- moldura da tela ---- */
+  .bezel{
+    position:relative;border-radius:3px;
+    padding:clamp(8px,1.6vw,16px);
+    background:linear-gradient(180deg,var(--stone-hi),var(--stone) 40%,var(--pitch));
+    border:1px solid var(--edge);
+    box-shadow:0 0 0 1px rgba(0,0,0,.7), 0 26px 60px -22px #000, inset 0 1px 0 rgba(200,150,60,.10);
+  }
+  .bezel::before{
+    content:"";position:absolute;inset:-30px;z-index:-1;border-radius:20px;
+    background:radial-gradient(60% 50% at 50% 50%,rgba(200,120,40,.16),transparent 70%);
+    animation:torch 3.1s ease-in-out infinite;
+  }
+  @keyframes torch{0%,100%{opacity:.75}37%{opacity:1}61%{opacity:.62}82%{opacity:.92}}
+  @media (prefers-reduced-motion:reduce){.bezel::before{animation:none}}
+
+  .screen-wrap{position:relative;background:#000;border:1px solid #000;overflow:hidden}
+  /* o tamanho de verdade vem de encaixarTela(), em p5.js: um numero inteiro
+     de pixels do monitor por pixel do jogo */
+  canvas{
+    display:block;width:640px;max-width:100%;height:auto;aspect-ratio:16/9;
+    image-rendering:pixelated;image-rendering:crisp-edges;
+    background:#000;cursor:crosshair;
+  }
+  /* uma linha escura por linha do jogo; --linha vem de encaixarTela() */
+  .scan{
+    position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(180deg,rgba(0,0,0,.24) 0 34%,transparent 34%);
+    background-size:100% var(--linha,3px);
+    mix-blend-mode:multiply;opacity:.55;
+  }
+  .vig{
+    position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(120% 100% at 50% 50%,transparent 52%,rgba(0,0,0,.55));
+  }
+
+  /* ---- legenda de controles ---- */
+  .legend{
+    display:grid;gap:8px 22px;
+    grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+    font-size:19px;color:var(--ash);
+    border-top:1px solid var(--edge);padding-top:16px;
+  }
+  .legend div{display:flex;align-items:baseline;gap:9px}
+  kbd{
+    font-family:var(--term);font-size:17px;line-height:1;
+    color:var(--parchment);background:#120f0c;
+    border:1px solid var(--edge);border-bottom-color:#000;
+    border-radius:3px;padding:3px 7px;white-space:nowrap;
+    box-shadow:inset 0 1px 0 rgba(200,150,60,.12);
+  }
+  .note{
+    font-size:19px;color:var(--brass-dim);letter-spacing:.04em;
+    display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:space-between;
+  }
+  .note b{color:var(--brass);font-weight:400}
+  a{color:var(--brass)}
+  :focus-visible{outline:2px solid var(--brass);outline-offset:3px}
+</style>
+
+<div class="cabinet">
+  <header class="plate">
+    <div class="eyebrow">Epis&oacute;dio I &middot; Fase 1</div>
+    <h1>A Cripta de Vhalgorn</h1>
+    <div class="rule"></div>
+    <p class="tagline">Encontre a Chave R&uacute;nica. Abra o Selo. Mate o que dorme l&aacute; dentro.</p>
+  </header>
+
+  <div class="bezel">
+    <div class="screen-wrap">
+      <canvas id="screen" width="640" height="360" tabindex="0" aria-label="Tela do jogo"></canvas>
+      <div class="scan"></div>
+      <div class="vig"></div>
+    </div>
+  </div>
+
+  <div class="legend">
+    <div><kbd>W A S D</kbd><span>andar / andar de lado</span></div>
+    <div><kbd>Mouse</kbd> <kbd>&larr;</kbd> <kbd>&rarr;</kbd><span>olhar em volta</span></div>
+    <div><kbd>Espa&ccedil;o</kbd><span>pular</span></div>
+    <div><kbd>Shift</kbd><span>avan&ccedil;o r&aacute;pido (2 cargas)</span></div>
+    <div><kbd>C</kbd><span>agachar</span></div>
+    <div><kbd>Clique</kbd> <kbd>Ctrl</kbd><span>atacar</span></div>
+    <div><kbd>E</kbd><span>usar / abrir</span></div>
+    <div><kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd><span>trocar arma</span></div>
+    <div><kbd>Tab</kbd><span>mapa</span></div>
+    <div><kbd>M</kbd><span>som</span></div>
+    <div><kbd>P</kbd><span>painel de ajuste</span></div>
+    <div><kbd>X</kbd><span>terceira pessoa</span></div>
+    <div><kbd>Enter</kbd><span>falar (diga &ldquo;oi&rdquo; perto de um morador)</span></div>
+    <div><kbd>B</kbd> <kbd>4</kbd> <kbd>5</kbd><span>bolsa, usar po&ccedil;&atilde;o, usar cristal</span></div>
+    <div><kbd>H</kbd> <kbd>J</kbd><span>velocidade</span></div>
+  </div>
+
+  <p class="note">
+    <span>Mire para <b>cima</b> nos morcegos e para <b>baixo</b> nas aranhas &mdash; agora o tiro segue a mira.</span>
+    <span>Procure a parede oca na biblioteca: <b>1 segredo</b>.</span>
+    <span>Teste: <b>G</b> invenc&iacute;vel &middot; <b>N</b> atravessar paredes &middot;
+      <b>K</b> arsenal &middot; <b>V</b> vitrine (bichos param)</span>
+  </p>
+</div>
+
+<!-- os corpos de fora (build.js, corposDeFora). Com WebGL2 a placa desenha o andarilho da vila (p5.js) em 3D, e vem so o modelo
+     dele (guerreiro.gpu.js, 2,5 MB); sem WebGL2, ou com ?gpu=nao, vem o corpo de 8 MB para o forno. ?gpu=sim forca a placa.
+     PLACA_3D diz ao jogo o que foi decidido aqui (gpu.js). Outro corpo vem com ?corpo=<nome>. -->
+<script>(function(){ var q = location.search, m = /[?&]corpo=([a-z0-9-]+)/.exec(q), nomes = [], gl = null; try { gl = window.WebGL2RenderingContext ? document.createElement("canvas").getContext("webgl2") : null; if (gl && gl.getExtension("WEBGL_lose_context")) gl.getExtension("WEBGL_lose_context").loseContext(); } catch(e){ gl = null; } var placa = /[?&]gpu=sim/.test(q) || (!!gl && !/[?&]gpu=nao/.test(q)); window.PLACA_3D = placa; if (!placa || !gl) nomes.push("guerreiro"); if (m && m[1] !== "humano" && nomes.indexOf(m[1]) < 0) nomes.push(m[1]); for (var i = 0; i < nomes.length; i++) document.write('<script src="mundo-perigoso/personagens/' + nomes[i] + '.corpo.js"><\/script>'); if (placa) document.write('<script src="mundo-perigoso/personagens/guerreiro.gpu.js"><\/script>'); })();</script>
+<script>
+"use strict";
+(function(){

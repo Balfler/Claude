@@ -1,0 +1,1 @@
+1993 pixel art: conjunto de guerreiro (armadura de placas de aço, elmo fechado, espada e escudo redondo). DESIGN.md linhas 85, 112, 135-189; src/p3e.js.

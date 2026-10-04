@@ -1,0 +1,1 @@
+1993 pixel art: dragonas e ombreiras acolchoadas de tecido sobre o humano base. DESIGN.md linhas 945-946, 1109-1120; src/p3e.js MP.TECIDO. [vista: frente]

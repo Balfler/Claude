@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><title>worker de blob</title></head>
+<body><pre id="saida">rodando</pre>
+<!-- O jogo e um arquivo HTML so, aberto direto do disco. Um worker costuma
+     pedir um arquivo .js a parte -- mas um worker feito de um Blob, com o
+     codigo que ja esta dentro da pagina, nao pede. Esta pagina confere se
+     isso roda aberto por file:// e quanto custa mandar uma grade para la e
+     trazer as imagens de volta. -->
+<script>
+function trabalho(){                       /* o codigo do worker: vem de dentro da pagina */
+  onmessage = function(m){
+    const g = new Uint8Array(m.data.grade), t0 = performance.now();
+    let n = 0; for (let i = 0; i < g.length; i++) if (g[i]) n++;
+    const img = new Uint8Array(80*117); img.fill(n & 255);
+    postMessage({n: n, ms: performance.now() - t0, img: img.buffer}, [img.buffer]);
+  };
+}
+const src = "(" + trabalho.toString() + ")()";
+const res = {origem: location.protocol};
+try {
+  const w = new Worker(URL.createObjectURL(new Blob([src], {type: "text/javascript"})));
+  const grade = new Uint8Array(80*56*117); for (let i = 0; i < grade.length; i += 3) grade[i] = 1;
+  const t0 = performance.now();
+  w.onmessage = function(m){
+    res.funcionou = true; res.voxels = m.data.n; res.idaEVoltaMs = performance.now() - t0;
+    res.imagemVoltou = new Uint8Array(m.data.img).length;
+    document.getElementById("saida").textContent = JSON.stringify(res); window.RES = res;
+  };
+  w.onerror = function(e){ res.funcionou = false; res.erro = e.message; window.RES = res; };
+  w.postMessage({grade: grade.buffer}, [grade.buffer]);
+} catch (e){ res.funcionou = false; res.erro = String(e); window.RES = res; }
+</script></body></html>

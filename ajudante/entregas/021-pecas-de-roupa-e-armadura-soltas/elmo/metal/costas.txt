@@ -1,0 +1,1 @@
+1993 pixel art: elmo fechado de placas de aço com fenda de visão sobre o humano base. DESIGN.md linhas 945-946, 1270-1275; src/p3e.js PECAS.elmo.fechado. [vista: costas]

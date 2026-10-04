@@ -1,0 +1,6 @@
+Pixel art sprite character turnaround sheet of a fantasy beach coastal crab, showing three views side by side on a single horizontal sheet: FRONT VIEW, LEFT PROFILE SIDE VIEW (facing left), and BACK VIEW. Rounded armored carapace shell in reddish-orange and sandy tan tones, two large raised front claws pincers, multiple jointed crawling legs, black stalk eyes pointing up. Authentic 1993 PC RPG pixel art aesthetic: clean pixel clusters, crisp dark contour outlines, limited color palette, strictly flat solid neutral light gray background (#C0C0C0), absolutely no floor shadow, no drop shadow, isolated sprite turnaround. Neutral pose, exact same height, same body proportions, same carapace texture and colors across all three views. Reference style: humano-3-vistas-1.
+
+Origem no projeto: PLANEJAMENTO.md: linha 271 ("bichos da ilha: ... caranguejo").
+Vista: COSTAS
+Detalhes: Vista traseira (Back View): caranguejo visto de costas/dorsal, carapaça alaranjada inteira e pinças voltadas para a frente.
+Estilo: Pixel art 1993, contorno escuro, paleta curta, fundo liso cinza (#C0C0C0), sem sombra no chao.

@@ -1,0 +1,7 @@
+Pixel art sprite character turnaround sheet showing three full-body views side by side: FRONT VIEW, LEFT PROFILE SIDE VIEW (facing left), and BACK VIEW. A medieval town artisan craftsman carpenter named Tobias (artisan of Pedra Alta). Authentic 1993 PC RPG pixel art aesthetic, exact proportions (117 voxels high in A-pose with arms slightly away from body) matching the reference mold. He has short curly dark hair, wearing a sturdy heavy brown leather work apron over an unbleached linen shirt with rolled sleeves, work tool belt with a small wooden mallet and chisel pouch, dark trousers, and practical leather work shoes. Dark contour outlines, limited color palette, strictly flat solid light gray background (#C0C0C0), no floor shadow. Exact same height and joint alignment across all three views.
+
+Origem no projeto: src/conversa.js: linha 31; src/ilha.js: linha 54; DESIGN.md: linha 399 ("Artesão: bancada do ofício, arca").
+Morador: Tobias (Artesão)
+Vista: LADO
+Detalhes: Vista lateral (Left Profile View): virado para a esquerda, avental amarrado e ferramentas na cinta.
+Estilo: Pixel art 1993, contorno escuro, paleta curta, fundo liso cinza (#C0C0C0), sem sombra no chao. Proporcoes do molde de 117 voxels.

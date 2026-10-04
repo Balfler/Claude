@@ -1,0 +1,8 @@
+{
+  "nome": "humano",
+  "modelo": "modelos vox/humano.wgvox",
+  "capturas": [
+    {"animacao": "andar", "arquivo": "../captura/cmu/143_32.bvh", "por que": "caminhada da CMU (sujeito 143): quadril e ombro balancando de verdade, calcanhar tocando o chao; cabe inteira na grade"},
+    {"animacao": "correr", "arquivo": "../captura/cmu/09_01.bvh", "opcoes": {"fase": 0.375}, "por que": "corrida da CMU (sujeito 9): pe de tras subindo, joelho alto, braco no ritmo; comecando 3/8 de ciclo depois da passada mais aberta, a passada inteira cabe nos 56 voxels de fundo e a cabeca inclinada nao leva o capuz para fora"}
+  ]
+}

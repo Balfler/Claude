@@ -1,0 +1,29 @@
+diff --git a/mundo-perigoso/README.md b/mundo-perigoso/README.md
+index d0c38b1..63c0be2 100644
+--- a/mundo-perigoso/README.md
++++ b/mundo-perigoso/README.md
+@@ -12,8 +12,9 @@ node mundo-perigoso/editor/personagem.js  # converte Arte/personagens/humano.png
+ node mundo-perigoso/atelie/cli.js receita mundo-perigoso/Arte/personagens/humano.receita.json  # refaz o humano do zero: modelo + capturas
+ node mundo-perigoso/atelie/cli.js exportar mundo-perigoso/Arte/personagens/humano.atelie  # valida e grava personagens/humano.personagem e .pele
+ node mundo-perigoso/atelie/cli.js captura <projeto.atelie> <arquivo.bvh> <animacao>  # captura de movimento numa animacao
++node mundo-perigoso/teste/tudo.js         # a bateria inteira: build, todos os testes e a verificacao (997 testes)
+ node mundo-perigoso/teste/atelie.test.js  # atelie: rig, peso, pele, captura, encaixe, validacao, arquivos e o jogo lendo (90 testes)
+-node mundo-perigoso/teste/conversor.test.js  # PNG, molde, conversor de tres vistas e pose do desenho (28 testes)
++node mundo-perigoso/teste/conversor.test.js  # PNG, molde, conversor de tres vistas e pose do desenho (25 testes)
+ node mundo-perigoso/teste/wgvox.test.js   # leitor .wgvox e leitor/escritor .vox (10 testes)
+ node mundo-perigoso/teste/verifica.js     # sintaxe, mapa, topologia, ASCII
+ node mundo-perigoso/teste/jogo.test.js    # regras do jogo, painel, tela 16:9, terceira pessoa, passo fixo e o preparo do golpe dos bichos (69 testes)
+@@ -24,11 +25,11 @@ node mundo-perigoso/teste/conversa.test.js  # palavras-chave dos moradores (13 t
+ node mundo-perigoso/teste/regras.test.js  # regras do personagem     (88 testes)
+ node mundo-perigoso/teste/personagem.test.js  # personagem de 117 voxels, peças, provador e a fornada (26 testes)
+ node mundo-perigoso/teste/pecas.test.js   # peças: forma, sólidos, dois andares, escada, a malha de 65 direções, a porta que abre, a textura do mundo (45 testes)
+-node mundo-perigoso/teste/estilos.test.js # estilos e o pintor de texturas, sem navegador (49 testes)
++node mundo-perigoso/teste/estilos.test.js # estilos e o pintor de texturas, sem navegador (50 testes)
+ node mundo-perigoso/teste/canteiro.test.js # o micro do canteiro: mira, fantasma, pôr, tirar, desfazer, id, encaixe, conta-gotas, seleção, trocar, abrir (63 testes)
+ node mundo-perigoso/teste/refazer.test.js # refazer só o que mudou dá o mesmo mundo que montar do zero (18 testes)
+ node mundo-perigoso/teste/andar.test.js   # grade de andar: pisos, degrau, porta (fechada, aberta, na conta), escada, agachar, ponte, régua, cada tipo de peça, a casa do lote (70 testes)
+-node mundo-perigoso/teste/modelo.test.js  # modelo: copiar, girar, espelhar, colar, o arquivo .modelo, o lote (21 testes)
++node mundo-perigoso/teste/modelo.test.js  # modelo: copiar, girar, espelhar, colar, o arquivo .modelo, o lote (27 testes)
+ node mundo-perigoso/teste/jogadores.test.js # varios jogadores no mesmo mundo: o passo de cada um, o do mundo, quem apanha, pega e abre (12 testes)
+ node mundo-perigoso/teste/catalogo.test.js # catálogo: todo tipo em todo estilo, girado e espelhado; a miniatura do motor (20 testes)
+ node mundo-perigoso/teste/validacao.test.js # validação: formato, ligações entre mapas, peças soltas, alcance, escada, pior quadro (39 testes)

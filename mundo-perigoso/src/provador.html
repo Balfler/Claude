@@ -1,0 +1,89 @@
+<title>Provador</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=VT323&family=Alegreya+Sans:wght@400;500&display=swap">
+<style>
+  /* o mesmo mundo do jogo: pedra, latao e pergaminho. Um tema so, de proposito. */
+  :root{
+    --breu:#0e0b08; --pedra:#1b1510; --pedra-alta:#261e17; --aresta:#3a2e22; --aresta-clara:#54432f;
+    --latao:#c8963c; --latao-claro:#e8b860; --latao-fundo:#3a2a14; --pergaminho:#e2d4b8; --cinza:#9c8b73;
+    --f-titulo:"Cinzel", Georgia, "Times New Roman", serif;
+    --f-texto:"Alegreya Sans", "Segoe UI", system-ui, sans-serif;
+    --f-num:"VT323", "Lucida Console", Consolas, monospace;
+    color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  [hidden]{display:none!important}
+  html,body{margin:0;background:var(--breu);color:var(--pergaminho);font:400 16px/1.45 var(--f-texto)}
+  button{font:inherit;color:inherit}
+  :focus-visible{outline:2px solid var(--latao-claro);outline-offset:2px}
+  .pagina{max-width:1180px;margin:0 auto;padding:28px clamp(14px,3vw,36px) 40px}
+  .sobre{margin:0 0 6px;font:500 13px var(--f-texto);letter-spacing:.14em;text-transform:uppercase;color:var(--cinza)}
+  h1{margin:0;font:700 clamp(30px,4vw,44px)/1.05 var(--f-titulo);letter-spacing:.04em}
+  .lede{margin:10px 0 22px;max-width:64ch;color:var(--cinza)}
+  .mesa{display:grid;grid-template-columns:minmax(280px,420px) minmax(0,1fr);gap:28px;border-top:1px solid var(--aresta);padding-top:22px}
+  .palco{display:flex;flex-direction:column;align-items:center;gap:12px}
+  .espelho{width:100%;display:flex;justify-content:center;padding:18px 0 10px;
+    background:radial-gradient(60% 55% at 50% 60%,#2e2418,var(--pedra) 70%);border:1px solid var(--aresta)}
+  #vista{width:240px;height:351px;image-rendering:pixelated;image-rendering:crisp-edges;cursor:ew-resize;touch-action:none}
+  .girar{display:flex;align-items:center;gap:10px}
+  .girar .num{min-width:15ch;text-align:center;font:22px var(--f-num);color:var(--latao-claro)}
+  .botao{background:var(--pedra-alta);border:1px solid var(--aresta-clara);border-radius:2px;padding:5px 12px;cursor:pointer}
+  .botao:hover{border-color:var(--latao);color:var(--latao-claro)}
+  .chk{display:inline-flex;align-items:center;gap:7px;font-size:15px;cursor:pointer}
+  .chk input{accent-color:var(--latao)}
+  .rumos{display:grid;grid-template-columns:repeat(8,1fr);gap:4px;width:100%}
+  .rumos button{padding:4px 0;background:var(--pedra);border:1px solid var(--aresta);cursor:pointer}
+  .rumos button[aria-pressed="true"]{border-color:var(--latao);background:var(--latao-fundo)}
+  .rumos canvas{display:block;width:100%;height:auto;image-rendering:pixelated}
+  .poses{display:flex;flex-wrap:wrap;gap:6px;width:100%}
+  .poses button{padding:5px 10px;background:var(--pedra);border:1px solid var(--aresta);cursor:pointer;color:inherit}
+  .poses button[aria-pressed="true"]{border-color:var(--latao);background:var(--latao-fundo)}
+  .pecas{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:4px 26px;align-content:start}
+  .espaco{padding:10px 0 12px;border-bottom:1px solid var(--aresta)}
+  .espaco h2{margin:0 0 8px;font:600 11px var(--f-titulo);letter-spacing:.16em;text-transform:uppercase;color:var(--latao)}
+  .opcoes{display:flex;flex-wrap:wrap;gap:5px}
+  .opcoes button{background:var(--pedra);border:1px solid var(--aresta-clara);border-radius:2px;padding:3px 10px;cursor:pointer;font-size:15px}
+  .opcoes button:hover{border-color:var(--latao)}
+  .opcoes button[aria-pressed="true"]{background:var(--latao-fundo);border-color:var(--latao);color:var(--latao-claro)}
+  .cores{display:flex;gap:6px;margin-top:8px}
+  .cores button{width:26px;height:18px;border:1px solid var(--aresta-clara);border-radius:2px;cursor:pointer;padding:0}
+  .cores button[aria-pressed="true"]{outline:2px solid var(--latao-claro);outline-offset:1px}
+  .nota{margin:18px 0 0;max-width:72ch;font-size:14px;color:var(--cinza)}
+  code{font-family:var(--f-num);font-size:17px;color:var(--pergaminho)}
+  @media (max-width:820px){ .mesa{grid-template-columns:1fr} }
+</style>
+
+<div class="pagina">
+  <p class="sobre">Mundo Perigoso &#xb7; personagem por pe&#xe7;as</p>
+  <h1>Provador</h1>
+  <p class="lede">O personagem &#xe9; montado por pe&#xe7;as de voxel e assado nos oito rumos, com o mesmo assador das criaturas. Troque as pe&#xe7;as e veja de todos os lados, parado ou andando.</p>
+
+  <div class="mesa">
+    <section class="palco" aria-label="O personagem">
+      <div class="espelho"><canvas id="vista" width="80" height="117" aria-label="O personagem no rumo escolhido"></canvas></div>
+      <div class="girar">
+        <button type="button" class="botao" id="girarEsq" aria-label="Girar para a esquerda">&#x25c0;</button>
+        <span class="num" id="rumoNome"></span>
+        <button type="button" class="botao" id="girarDir" aria-label="Girar para a direita">&#x25b6;</button>
+      </div>
+      <div class="girar">
+        <label class="chk"><input type="checkbox" id="auto" checked> girar sozinho</label>
+      </div>
+      <div class="poses" id="poses" role="group" aria-label="A pose"></div>
+      <div class="rumos" id="rumos" role="group" aria-label="Os oito rumos"></div>
+    </section>
+
+    <section aria-label="As pe&#xe7;as">
+      <div class="pecas" id="pecas"></div>
+      <p class="nota">A armadura &#xe9; montada por cima da roupa, e o enfeite por cima de tudo: o cosm&#xe9;tico muda a cor do enfeite, nunca o material da armadura. As pe&#xe7;as s&#xe3;o provis&#xf3;rias e esperam as refer&#xea;ncias desenhadas. Toda regra mora em <code>src/p3e.js</code>, o mesmo arquivo que o jogo usa para os moradores.</p>
+    </section>
+  </div>
+</div>
+<canvas id="screen" width="320" height="200" hidden></canvas>
+
+<!-- o corpo de teste, com ?corpo=<nome> (build.js, corposDeFora) -->
+<script>(function(){ var m = /[?&]corpo=([a-z0-9-]+)/.exec(location.search); if (m && m[1] !== "humano") document.write('<script src="mundo-perigoso/personagens/' + m[1] + '.corpo.js"><\/script>'); })();</script>
+<script>
+"use strict";
+(function(){

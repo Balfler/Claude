@@ -1,0 +1,57 @@
+MAPA 2
+nome gruta
+tamanho 48 34
+passo 0.25
+mar nenhum
+
+[terreno 32]
+0 0 ^*70 .*4 ^*p .*7 ^*o .*8 ^*3 #*e ^*6 .*9 ^*3 # +*c # ^*5 .*a ^*3 # +*c # ^*4 . ^ .*9 ^*3 # +*c # ^*4 .*b ^*3 # +*c # ^*5 .*a ^*3 # +*c .*g ^*3 # +*c .*g ^*3 # +*c .*g ^*3 # +*c # ^*6 .*9 ^*3 # +*c # ^*7 .*8 ^*3 # +*c # ^*8 .*7 ^*3 # +*c # ^*a .*4 ^*4 #*e ^*b .*3 ^*t .*3 ^*m #*7 .*3 # ^*l # +*a ^*l # +*a ^*l # +*a ^*l # +*a ^*l # +*a ^*l # +*a ^*l # +*a
+1 0 ^*36 . ^*d .*5 ^*b .*6 ^*a .*6 ^*a .*7 ^*9 .*6 ^*a .*8 ^*8 .*8 ^*8 .*8 ^*8 .*8 ^*8 .*7 ^*9 .*5 ^*b .*4 ^*c .*4 ^*c .*2 ^*1a #*7 ^*9 +*6 # ^*9 +*6 # ^*9 +*6 # ^*9 +*6 # ^*9 +*6 # ^*9 +*6 # ^*9 +*6 # ^*9
+0 1 ^*l #*b ^*w
+1 1 #*7 ^*p
+
+[altura 32]
+0 0 0*sg
+1 0 0*e8
+0 1 0*1s
+1 1 0*w
+
+[teto 32]
+0 0 8*sg
+1 0 8*e8
+0 1 8*1s
+1 1 8*w
+
+[pecas]
+c 1 cripta-pedra cripta
+c 2 caverna caverna
+c 3 cripta-pedra sala do tesouro
+p 1 nicho 6 11 0 0
+p 1 tocha 7.9 11 0 0
+p 1 nicho 9 11 0 0
+p 1 tocha 11 11 0 0
+p 1 nicho 12 11 0 0
+p 1 coluna 6.25 13.25 0 0
+p 1 coluna 13.25 13.25 0 0
+p 1 sarcofago 9.5 15 0 0
+p 1 coluna 6.25 19.25 0 0
+p 1 coluna 13.25 19.25 0 0
+p 2 estalagmite 28.5 8.5 0 0
+p 2 estalagmite 25.5 9.5 0 0
+p 2 estalagmite 35 10 0 0
+p 2 braseiro 29.7 13.7 0 0
+p 2 estalagmite 37 14.5 0 0
+p 2 estalagmite 25.5 18 0 0
+p 2 estalagmite 34 19 0 0
+p 3 tocha 25 25 0 0
+p 3 altar 29.25 25 0 0
+p 3 tocha 35 25 0 0
+p 3 coluna 27.5 25.2 0 0
+p 3 coluna 33 25.2 0 0
+p 3 bau 29.65 28.2 0 0
+
+[coisas]
+5 16 saida id=gruta mapa=ilha-650
+7 16 jogador
+33 16 ninho criatura=morcego quantos=3 raio=4
+30 28 bau conteudo=ouro:50

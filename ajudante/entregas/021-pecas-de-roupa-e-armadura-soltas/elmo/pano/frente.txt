@@ -1,0 +1,1 @@
+1993 pixel art: capuz de tecido leve sobre o humano base; cobre cabeça e desce no pescoço. DESIGN.md linhas 945-946, 1270; src/p3e.js PECAS.elmo.capuz. [vista: frente]

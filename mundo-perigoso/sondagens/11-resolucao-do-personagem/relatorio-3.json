@@ -1,0 +1,60 @@
+{
+ "Ks": [
+  1,
+  1.41,
+  2.19
+ ],
+ "variantes": [
+  {
+   "K": 1,
+   "grade": [
+    80,
+    56,
+    117
+   ],
+   "voxels": 55428,
+   "cores": 54,
+   "foraDaGrade": 0
+  },
+  {
+   "K": 1.41,
+   "grade": [
+    113,
+    79,
+    165
+   ],
+   "voxels": 155983,
+   "cores": 54,
+   "foraDaGrade": 0
+  },
+  {
+   "K": 2.19,
+   "grade": [
+    175,
+    123,
+    256
+   ],
+   "voxels": 607732,
+   "cores": 54,
+   "foraDaGrade": 0
+  }
+ ],
+ "quadros": [
+  {
+   "quadro": "frente-1.6",
+   "distancia_tiles": 1.6
+  },
+  {
+   "quadro": "costas-1.6",
+   "distancia_tiles": 1.6
+  },
+  {
+   "quadro": "frente-3",
+   "distancia_tiles": 3
+  },
+  {
+   "quadro": "costas-3",
+   "distancia_tiles": 3
+  }
+ ]
+}

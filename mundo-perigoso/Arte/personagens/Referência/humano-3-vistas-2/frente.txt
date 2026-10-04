@@ -1,0 +1,4 @@
+Pixel art sprite character turnaround sheet showing three full-body views side by side: FRONT VIEW, LEFT PROFILE SIDE VIEW (facing left), and BACK VIEW. A style variation of the base human character: a medieval rogue scout adventurer. Wears a light beige linen tunic with a fitted brown hardened leather vest over it, sturdy leather belt with brass buckle and hip pouch, dark slate gray trousers, and rugged cuffed leather boots. Same proportions, height, and A-pose as the mold (arms resting slightly open, feet flat on ground). Exact same height, shoulders, and outfit across all three views. Classic 1993 PC RPG pixel art aesthetic, crisp dark contour outlines, short color palette, flat solid neutral gray background, completely no floor shadow, isolated sprite.
+
+Vista: FRENTE
+Role: Frente da variacao 2 (colete de couro e camisa de linho) em pixel art 1993, proporções do molde, braços ligeiramente abertos.

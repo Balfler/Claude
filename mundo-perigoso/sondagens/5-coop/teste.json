@@ -1,0 +1,142 @@
+{
+ "ok": [
+  "quem esta na tela de titulo nao esta no mundo (Ana ve 1, Bia ve 1 no mundo)",
+  "as duas entram",
+  "Ana ve 2 jogadores e Bia ve 2 jogadores (2 e 2)",
+  "o mundo do cliente e o do servidor batem",
+  "o preparo do golpe dos bichos chegou do servidor (preparo 0.45)",
+  "Ana andou, e Bia ve Ana onde Ana se ve (diferenca 0.004 tile)",
+  "Bia anda, pula e da dash com 120 ms, e a previsao nao corrige (correcao media 0.0000, maior 0.000 tile)",
+  "Bia ve Ana com o nome e o visual dela (Ana, elmo fechado, capa capa, armadura couro)",
+  "a fala de Ana chega para Bia (*: Bia entrou na cripta / Ana: oi Bia, vamos pela esquerda / *: Bia agora e Beatriz)",
+  "/nome troca o nome de Bia, e Ana ve o nome novo (Beatriz)",
+  "achou um diabrete com chao livre em volta",
+  "Ana bateu no diabrete, e Bia viu (vida do bicho 30 -> -18, morto)",
+  "a contagem de mortes e a mesma nas duas (Ana 1/20, Bia 1/20)",
+  "Bia bateu com 120 ms, e Ana viu (vida do bicho 30 -> -26, morto)",
+  "o servidor volta os bichos para onde cada uma via, mais para quem tem atraso (Ana 8.0 passos em media, Beatriz 14.8)",
+  "Bia ve Ana de perto, na frente, desenhada ({\"d\":2.1999999999999993,\"olhar\":0,\"desenhado\":true})",
+  "achou o portal de saida ({\"x\":37.5,\"y\":28.5,\"ang\":0})",
+  "Ana atravessou, e as duas venceram (Ana won, Bia won, recomeca em 3 s)",
+  "a cripta recomeca junto, com a contagem zerada ({\"Ana\":[1,\"play\",0],\"Bia\":[1,\"play\",0]})",
+  "depois do recomeco, Ana ve Bia andar onde Bia se ve (diferenca 0.004 tile)",
+  "o servidor tambem serve o provador, no mesmo endereco (200, 1663564 bytes)",
+  "nenhum erro nas paginas"
+ ],
+ "falhou": [],
+ "previsaoB": {
+  "media": 0,
+  "maior": 0
+ },
+ "falas": [
+  "*: Bia entrou na cripta",
+  "Ana: oi Bia, vamos pela esquerda",
+  "*: Bia agora e Beatriz"
+ ],
+ "luta": {
+  "hpAntes": 30,
+  "hpDepoisVistoPorB": -18,
+  "morreu": true
+ },
+ "lutaB": {
+  "hpAntes": 30,
+  "hpDepois": -26,
+  "morreu": true
+ },
+ "rebobinados": {
+  "Ana": [
+   8,
+   8,
+   8,
+   8,
+   8,
+   8
+  ],
+  "Beatriz": [
+   15,
+   15,
+   15,
+   14,
+   15
+  ]
+ },
+ "visao": {
+  "d": 2.1999999999999993,
+  "olhar": 0,
+  "desenhado": true
+ },
+ "recomeco": {
+  "Ana": [
+   1,
+   "play",
+   0
+  ],
+  "Bia": [
+   1,
+   "play",
+   0
+  ]
+ },
+ "estadoA": {
+  "conectado": true,
+  "eu": 1,
+  "nome": "Ana",
+  "jogadores": 2,
+  "ping": 7.800000011920929,
+  "pendentes": 1,
+  "noMundo": 2,
+  "retratos": 705,
+  "correcaoMedia": 0.09691242238076991,
+  "maiorCorrecao": 29.627858511880333,
+  "kbPorSegundo": 31.84816988375525,
+  "erro": "",
+  "atraso": 0,
+  "preparo": 0.45,
+  "compensar": true,
+  "rodada": 1,
+  "recomecaEm": 0,
+  "modo": "play",
+  "tickVisto": 2501.2291666666665,
+  "kills": 0,
+  "totalKills": 20,
+  "falas": [
+   "*: Ana entrou na cripta",
+   "*: Bia entrou na cripta",
+   "Ana: oi Bia, vamos pela esquerda",
+   "*: Bia agora e Beatriz",
+   "*: A CRIPTA FOI VENCIDA! recomeca em 3 s",
+   "*: a cripta recomecou (rodada 2)"
+  ]
+ },
+ "estadoB": {
+  "conectado": true,
+  "eu": 2,
+  "nome": "Beatriz",
+  "jogadores": 2,
+  "ping": 128.09999999403954,
+  "pendentes": 9,
+  "noMundo": 2,
+  "retratos": 685,
+  "correcaoMedia": 0.0635073378043444,
+  "maiorCorrecao": 24.91395592132939,
+  "kbPorSegundo": 33.069721639790295,
+  "erro": "",
+  "atraso": 120,
+  "preparo": 0.45,
+  "compensar": true,
+  "rodada": 1,
+  "recomecaEm": 0,
+  "modo": "play",
+  "tickVisto": 2498.424474186158,
+  "kills": 0,
+  "totalKills": 20,
+  "falas": [
+   "*: Bia entrou na cripta",
+   "Ana: oi Bia, vamos pela esquerda",
+   "*: Bia agora e Beatriz",
+   "*: A CRIPTA FOI VENCIDA! recomeca em 3 s",
+   "*: a cripta recomecou (rodada 2)"
+  ]
+ },
+ "servidor": "co-op da cripta ouvindo na porta 8199 (preparo do golpe dos bichos 0.45 s, compensacao ligada)\n  nesta maquina:    http://localhost:8199/\n  na mesma rede:    http://10.200.97.93:8199/\n  no endereco: ?nome=Fulano para o nome, ?atraso=120 para um atraso de mentira\n  o visual: /provador no mesmo endereco (ex.: http://localhost:8199/provador), e depois recarregar o jogo\n*: Ana entrou na cripta\n2 jogadores | passo medio 0.082 ms, pior 6.23 ms | saindo 15.7 KB/s | golpes rebobinados 0\n*: Bia entrou na cripta\nAna: oi Bia, vamos pela esquerda\n2 jogadores | passo medio 0.341 ms, pior 1.51 ms | saindo 61.6 KB/s | golpes rebobinados 0\n*: Bia agora e Beatriz\ngolpe de Ana rebobinado 8 passos\ngolpe de Ana rebobinado 8 passos\ngolpe de Ana rebobinado 8 passos\ngolpe de Ana rebobinado 8 passos\ngolpe de Ana rebobinado 8 passos\ngolpe de Ana rebobinado 8 passos\ngolpe de Beatriz rebobinado 15 passos\ngolpe de Beatriz rebobinado 15 passos\ngolpe de Beatriz rebobinado 15 passos\ngolpe de Beatriz rebobinado 14 passos\ngolpe de Beatriz rebobinado 15 passos\n2 jogadores | passo medio 0.324 ms, pior 1.50 ms | saindo 68.3 KB/s | golpes rebobinados 11\n*: A CRIPTA FOI VENCIDA! recomeca em 3 s\n*: a cripta recomecou (rodada 2)\n2 jogadores | passo medio 0.378 ms, pior 2.15 ms | saindo 68.7 KB/s | golpes rebobinados 0\n*: Ana saiu\n*: Beatriz saiu\n"
+}

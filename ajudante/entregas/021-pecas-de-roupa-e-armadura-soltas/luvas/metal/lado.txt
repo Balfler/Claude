@@ -1,0 +1,1 @@
+1993 pixel art: manoplas articuladas de placas de aço sobre o humano base. DESIGN.md linhas 900, 945-946, 1288; src/p3e.js PECAS.armadura.placas. [vista: lado]

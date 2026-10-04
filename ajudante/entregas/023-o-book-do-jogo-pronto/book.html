@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book do Jogo Pronto — Proposta Visual e Regras</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=VT323&family=Alegreya+Sans:wght@400;500;700&display=swap">
+  <style>
+    :root {
+      --breu: #0c0907;
+      --pedra: #18130e;
+      --pedra-alta: #241c15;
+      --aresta: #3a2e22;
+      --latao: #c8963c;
+      --latao-claro: #e8b860;
+      --pergaminho: #e8ddc8;
+      --cinza: #9c8b73;
+      --verde: #27ae60;
+      --azul: #2980b9;
+      --f-tit: 'Cinzel', serif;
+      --f-pix: 'VT323', monospace;
+      --f-txt: 'Alegreya Sans', sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--breu);
+      color: var(--pergaminho);
+      font-family: var(--f-txt);
+      line-height: 1.5;
+      padding: 0 0 60px;
+    }
+    header {
+      background: linear-gradient(180deg, #1b130a 0%, var(--breu) 100%);
+      border-bottom: 2px solid var(--latao);
+      padding: 40px 20px 30px;
+      text-align: center;
+    }
+    header h1 {
+      font-family: var(--f-tit);
+      font-size: clamp(26px, 4vw, 42px);
+      color: var(--latao-claro);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    header p {
+      color: var(--cinza);
+      font-size: 16px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .badge {
+      display: inline-block;
+      background: var(--aresta);
+      color: var(--latao-claro);
+      font-family: var(--f-pix);
+      font-size: 16px;
+      padding: 4px 12px;
+      border: 1px solid var(--latao);
+      margin-top: 15px;
+      letter-spacing: 1px;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    nav.sumario {
+      background: var(--pedra);
+      border: 1px solid var(--aresta);
+      padding: 16px;
+      margin: 25px 0 35px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+    }
+    nav.sumario a {
+      background: var(--pedra-alta);
+      border: 1px solid var(--aresta);
+      color: var(--pergaminho);
+      text-decoration: none;
+      font-family: var(--f-pix);
+      font-size: 16px;
+      padding: 6px 12px;
+      transition: all 0.2s;
+    }
+    nav.sumario a:hover {
+      background: var(--latao);
+      color: var(--breu);
+      border-color: var(--latao-claro);
+    }
+    .cena-card {
+      background: var(--pedra);
+      border: 1px solid var(--aresta);
+      margin-bottom: 50px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+      page-break-after: always;
+    }
+    .cena-header {
+      background: var(--pedra-alta);
+      border-bottom: 1px solid var(--aresta);
+      padding: 16px 20px;
+    }
+    .cena-header h2 {
+      font-family: var(--f-tit);
+      font-size: 22px;
+      color: var(--latao-claro);
+      margin-bottom: 4px;
+    }
+    .cena-header .sub {
+      color: var(--cinza);
+      font-size: 14px;
+      font-style: italic;
+    }
+    .imagem-box {
+      width: 100%;
+      background: #000;
+      text-align: center;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--aresta);
+    }
+    .imagem-box img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+      border: 1px solid #222;
+    }
+    .legenda-box {
+      padding: 24px 20px;
+    }
+    .legenda-mostra {
+      font-size: 16px;
+      color: #f1e7d2;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+    .bloco-secao {
+      margin-top: 18px;
+      border-left: 4px solid var(--latao);
+      padding-left: 14px;
+    }
+    .bloco-secao.decidido {
+      border-left-color: var(--verde);
+      background: rgba(39, 174, 96, 0.05);
+      padding: 12px 14px;
+    }
+    .bloco-secao.proposta {
+      border-left-color: var(--azul);
+      background: rgba(41, 128, 185, 0.05);
+      padding: 12px 14px;
+    }
+    .bloco-titulo {
+      font-family: var(--f-pix);
+      font-size: 17px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+    .bloco-secao.decidido .bloco-titulo { color: #2ecc71; }
+    .bloco-secao.proposta .bloco-titulo { color: #5dade2; }
+    ul.itens {
+      list-style-type: none;
+    }
+    ul.itens li {
+      font-size: 14.5px;
+      margin-bottom: 6px;
+      position: relative;
+      padding-left: 18px;
+    }
+    ul.itens li::before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      color: var(--latao);
+    }
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: var(--cinza);
+      font-size: 13px;
+      border-top: 1px solid var(--aresta);
+      margin-top: 40px;
+    }
+    @media print {
+      body { background: #fff; color: #111; }
+      header { background: #fff; border-bottom: 2px solid #000; color: #000; }
+      header h1 { color: #000; }
+      header p, .badge { color: #333; }
+      nav.sumario { display: none; }
+      .cena-card {
+        background: #fff;
+        border: 1px solid #888;
+        box-shadow: none;
+        page-break-after: always;
+        margin-bottom: 0;
+      }
+      .cena-header { background: #eee; border-bottom: 1px solid #aaa; }
+      .cena-header h2 { color: #000; }
+      .imagem-box { background: #eee; }
+      .legenda-mostra { color: #111; }
+      .bloco-secao.decidido { background: #f0faf4; border-left-color: #27ae60; }
+      .bloco-secao.proposta { background: #f0f7fb; border-left-color: #2980b9; }
+      .bloco-secao.decidido .bloco-titulo { color: #196f3d; }
+      .bloco-secao.proposta .bloco-titulo { color: #1f618d; }
+      ul.itens li { color: #222; }
+      @page {
+        size: A4 portrait;
+        margin: 12mm;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Book do Jogo Pronto</h1>
+    <p>Guia conceitual e visual de referência para o desenvolvimento de <em>Mundo Perigoso</em>. Perspectiva em 640×360, no estilo dos RPGs de PC DOS de 1993.</p>
+    <div class="badge">9 CENAS CANÔNICAS | DECIDIDO VS PROPOSTA</div>
+  </header>
+
+  <div class="container">
+    <nav class="sumario" aria-label="Índice das Cenas">
+      <a href="#cena1">Cena 1</a>
+      <a href="#cena2">Cena 2</a>
+      <a href="#cena3">Cena 3</a>
+      <a href="#cena4">Cena 4</a>
+      <a href="#cena5">Cena 5</a>
+      <a href="#cena6">Cena 6</a>
+      <a href="#cena7">Cena 7</a>
+      <a href="#cena8">Cena 8</a>
+      <a href="#cena9">Cena 9</a>
+    </nav>
+
+    
+    <article class="cena-card" id="cena1">
+      <div class="cena-header">
+        <h2>1. A Cidade Cheia de Jogadores</h2>
+        <div class="sub">A vida urbana em Pedra Alta: classes convivendo com seus equipamentos canônicos</div>
+      </div>
+      <div class="imagem-box">
+        <img src="cena1.png" alt="1. A Cidade Cheia de Jogadores" width="640" height="360">
+      </div>
+      <div class="legenda-box">
+        <div class="legenda-mostra">
+          <strong>O que a cena mostra:</strong> A praça central de Pedra Alta densamente povoada por jogadores de diversas classes (Guerreiro em armadura de placas completa e escudo heráldico, Mago de túnica azulada e cajado luminoso, Clérigo em sobreveste com cruz sagrada e maça, Arqueiro com arco recurvo e aljava nas costas, Ladino espreitando nas sombras, Druida com adereços de chifre e peles rústicas). A praça reúne barracas de mercado, poço central, taverna e ferraria sob a escarpa rochosa.
+        </div>
+
+        <div class="bloco-secao decidido">
+          <div class="bloco-titulo">✓ DECIDIDO (DESIGN.md)</div>
+          <ul class="itens">
+            <li>Pedra Alta é o povoado inicial e praça principal de convivência e início da jornada (DESIGN.md linhas 699-701, 1456).</li>
+            <li>Arquitetura em tabuado de madeira, calçamento de lajotas e pedra para pescadores e artesãos da ilha (DESIGN.md linhas 380-412).</li>
+            <li>O jogo não possui classe fixa fechada: as classes são "receitas" de nós comprados no disco e equipamento vestido (DESIGN.md linhas 94-97).</li>
+            <li>As roupas e cosméticos são compostos por peças intercambiáveis (corpo, armadura, elmo, capa, armas) sem alterar a base humana (DESIGN.md linhas 871-874, 945-946).</li>
+          </ul>
+        </div>
+
+        <div class="bloco-secao proposta">
+          <div class="bloco-titulo">? PROPOSTA (PLANEJAMENTO.md — por decidir)</div>
+          <ul class="itens">
+            <li>Densidade máxima de jogadores visíveis na praça antes de ativar instanciamento ou sharding (PLANEJAMENTO.md, por decidir).</li>
+            <li>Sistema de comércio direto entre jogadores (trade window manual na rua) versus balcão consignado no armazém de Tobias (PLANEJAMENTO.md, por decidir).</li>
+            <li>Canal de voz posicional de proximidade nas tavernas e praças.</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="cena-card" id="cena2">
+      <div class="cena-header">
+        <h2>2. A Tela de Escolher Personagem</h2>
+        <div class="sub">As seis classes lado a lado em seus pedestais em arco gótico de pedra</div>
+      </div>
+      <div class="imagem-box">
+        <img src="cena2.png" alt="2. A Tela de Escolher Personagem" width="640" height="360">
+      </div>
+      <div class="legenda-box">
+        <div class="legenda-mostra">
+          <strong>O que a cena mostra:</strong> Tela de seleção no estilo clássico dos RPGs de PC DOS de 1993: seis arquétipos fundamentais (Guerreiro, Clérigo, Ladino, Mago, Arqueiro, Druida) perfilados de frente sobre pedestais entalhados, enquadrados por colunata gótica e vitrais noturnos, com painel inferior em pedra e latão decorado com botões de seleção e comandos.
+        </div>
+
+        <div class="bloco-secao decidido">
+          <div class="bloco-titulo">✓ DECIDIDO (DESIGN.md)</div>
+          <ul class="itens">
+            <li>O disco de perícias possui seis fatias arquetípicas: guerreiro, clérigo, ladino, mago, arqueiro e druida (DESIGN.md linhas 135-138).</li>
+            <li>A ordem do disco alterna estritamente marcial e mágica, posicionando cada classe vizinha a duas complementares e oposta a uma (DESIGN.md linhas 163-164).</li>
+            <li>Identidade visual em três pilares materiais inegociáveis: pedra, latão e pergaminho (DESIGN.md linhas 762-782; provador.html).</li>
+            <li>Silhueta legível em pixel art de 1993 com contorno escuro e paleta contida (DESIGN.md linhas 680, 874, 1270).</li>
+          </ul>
+        </div>
+
+        <div class="bloco-secao proposta">
+          <div class="bloco-titulo">? PROPOSTA (PLANEJAMENTO.md — por decidir)</div>
+          <ul class="itens">
+            <li>Número total de vagas de personagens por conta (PLANEJAMENTO.md, por decidir).</li>
+            <li>Customização estética permitida no criador inicial (tonalidades de pele, formato de barba e corte de cabelo) antes de recorrer ao ateliê e cosméticos em jogo.</li>
+            <li>Possibilidade de renomear o herói pagando taxa de ouro ou serviços do Mago da Memória.</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="cena-card" id="cena3">
+      <div class="cena-header">
+        <h2>3. Primeira Pessoa: As Habilidades por Classe</h2>
+        <div class="sub">Mecânicas em uso direto: bola de fogo, bloqueio de escudo, mira do arco, cura e urso</div>
+      </div>
+      <div class="imagem-box">
+        <img src="cena3.png" alt="3. Primeira Pessoa: As Habilidades por Classe" width="640" height="360">
+      </div>
+      <div class="legenda-box">
+        <div class="legenda-mostra">
+          <strong>O que a cena mostra:</strong> Interface de jogabilidade em primeira pessoa com o HUD clássico: Mago digitando a sequência de runas arcanas ("V A S") para lançar uma labareda de bola de fogo explosiva; Guerreiro empunhando escudo pesado de ferro e bloqueando o sopro incandescente de um réptil subterrâneo; Arqueiro puxando a corda e alinhando a flecha na mira; Clérigo erguendo as mãos em oração e emitindo cura radiante; Druida transmutado em grande urso selvagem desferindo patadas com garras afiadas.
+        </div>
+
+        <div class="bloco-secao decidido">
+          <div class="bloco-titulo">✓ DECIDIDO (DESIGN.md)</div>
+          <ul class="itens">
+            <li>O Mago digita combinações de feitiços em tempo real para proferir suas magias, sendo o motivo mecânico fundamental para a formação de party (DESIGN.md linhas 86-91).</li>
+            <li>O Guerreiro defende e bloqueia golpes no tempo certo com o escudo através dos nós de bloqueio da árvore marcial (DESIGN.md linhas 85, 120-121).</li>
+            <li>A velocidade de esquiva e resposta corporal sai do peso da armadura vestida (DESIGN.md linhas 112-113).</li>
+            <li>HUD do jogador exibe barras de Vida (vermelho), Mana (azul), Escudo e seletores de ação rápida (DESIGN.md linhas 762-782).</li>
+          </ul>
+        </div>
+
+        <div class="bloco-secao proposta">
+          <div class="bloco-titulo">? PROPOSTA (PLANEJAMENTO.md — por decidir)</div>
+          <ul class="itens">
+            <li>Mira manual com trajetória parabólica no arco versus sistema de lock-on com chance de acerto por destreza (PLANEJAMENTO.md, por decidir).</li>
+            <li>Gasto contínuo de estamina/vigor ao manter o escudo erguido em posição de guarda (PLANEJAMENTO.md, por decidir).</li>
+            <li>Duração exata das formas metamórficas do Druida e restrições de comunicação enquanto transformado em fera.</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="cena-card" id="cena4">
+      <div class="cena-header">
+        <h2>4. Terceira Pessoa: O Combate em Grupo</h2>
+        <div class="sub">A visão isométrica da câmera do X coordenando táticas em masmorra de pedra</div>
+      </div>
+      <div class="imagem-box">
+        <img src="cena4.png" alt="4. Terceira Pessoa: O Combate em Grupo" width="640" height="360">
+      </div>
+      <div class="legenda-box">
+        <div class="legenda-mostra">
+          <strong>O que a cena mostra:</strong> Visão externa acionada pela câmera do X exibindo a dinâmica coletiva de um grupo de quatro heróis em uma masmorra de pilares góticos: Guerreiro na vanguarda absorvendo os golpes de esqueletos e zumbis com espada e escudo; Clérigo emitindo círculo de luz áurea sagrada que ergue um companheiro caído; Mago na retaguarda conjurando labaredas de fogo; Arqueiro disparando flechas de cobertura; e Druida urso avançando na linha de choque.
+        </div>
+
+        <div class="bloco-secao decidido">
+          <div class="bloco-titulo">✓ DECIDIDO (DESIGN.md)</div>
+          <ul class="itens">
+            <li>A câmera externa do X permite alternar para terceira pessoa e ter leitura espacial do campo de batalha (DESIGN.md linhas 780-782; cripta-vhalgorn.html).</li>
+            <li>A party é planejada em torno de quatro membros cooperando com funções interdependentes de combate (DESIGN.md linhas 89-91, 143-145).</li>
+            <li>Inimigos da cripta (esqueletos, zumbis, morcegos e imps) atacam em bando por detecção visual e sonora (DESIGN.md linhas 762-782).</li>
+          </ul>
+        </div>
+
+        <div class="bloco-secao proposta">
+          <div class="bloco-titulo">? PROPOSTA (PLANEJAMENTO.md — por decidir)</div>
+          <ul class="itens">
+            <li>Zoom ajustável com a roda do mouse versus ângulos e alturas de câmera fixos para evitar quebrar paredes (PLANEJAMENTO.md, por decidir).</li>
+            <li>Colisão física entre membros da própria equipe (bloqueio de passagem em corredores estreitos de masmorra).</li>
+            <li>Raio de distribuição automática de experiência e bônus de combo por habilidades combinadas entre classes.</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="cena-card" id="cena5">
+      <div class="cena-header">
+        <h2>5. PvP: Duelo Honroso e Os Caídos</h2>
+        <div class="sub">O confronto pactuado na arena e a perigosa emboscada dos Caídos sob a névoa</div>
+      </div>
+      <div class="imagem-box">
+        <img src="cena5.png" alt="5. PvP: Duelo Honroso e Os Caídos" width="640" height="360">
+      </div>
+      <div class="legenda-box">
+        <div class="legenda-mostra">
+          <strong>O que a cena mostra:</strong> Dois pilares do combate PvP: à esquerda, um duelo honroso regulamentado em ponte de pedra entre um Guerreiro de placas e um Ladino de adagas duplas; à direita, uma emboscada traiçoeira em floresta nebulosa sob o brilho sinistro de uma lua vermelha, onde jogadores que escolheram a senda dos Caídos (com olhos vermelhos e auras de necromancia) atacam aventureiros leais em território disputado.
+        </div>
+
+        <div class="bloco-secao decidido">
+          <div class="bloco-titulo">✓ DECIDIDO (DESIGN.md)</div>
+          <ul class="itens">
+            <li>Mecânica canônica de traição e queda: classes que podem trair e passar para o lado do Rei Demônio em quests dedicadas, como o clérigo virando necromante e o paladino virando cavaleiro da morte (DESIGN.md linhas 427-450, 508-513).</li>
+            <li>A lua avermelhada surge como presságio de perigo e eventos sangrentos no mundo (DESIGN.md linhas 493, 780-782).</li>
+            <li>O combate corpo a corpo depende de alcance, ritmo e tempo de golpe, sem travar mira no adversário (DESIGN.md linhas 83-85).</li>
+          </ul>
+        </div>
+
+        <div class="bloco-secao proposta">
+          <div class="bloco-titulo">? PROPOSTA (PLANEJAMENTO.md — por decidir)</div>
+          <ul class="itens">
+            <li>Penalidade de morte em PvP de fronteira: perda percentual de experiência versus drop de itens soltos da bolsa (PLANEJAMENTO.md, por decidir).</li>
+            <li>Sistema de redenção ou purificação para jogadores que traíram para os Caídos retornarem ao lado dos mortais.</li>
+            <li>Arena formal nas capitais com apostas de ouro e ranking de duelistas sem risco de perda de itens.</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="cena-card" id="cena6">
+      <div class="cena-header">
+        <h2>6. Chefe Grande (MVP): O que Dorme na Cripta</h2>
+        <div class="sub">Grupo de quatro enfrentando o terrível Vhalgorn na câmara de lava incandescente</div>
+      </div>
+      <div class="imagem-box">
+        <img src="cena6.png" alt="6. Chefe Grande (MVP): O que Dorme na Cripta" width="640" height="360">
+      </div>
+      <div class="legenda-box">
+        <div class="legenda-mostra">
+          <strong>O que a cena mostra:</strong> Encontro épico contra o chefe supremo: na câmara da caldeira aberta para o teto da cripta, o colossal Vhalgorn, com chifres e asas demoníacas, ergue-se sobre o lago de lava borbulhante. Na linha de frente, o Guerreiro recebe o impacto com o escudo enquanto o Clérigo sustenta a vida da party, o Mago desfere magia arcana e o Arqueiro atira no olho da fera, sob uma barra monumental de HP de MVP no topo da tela.
+        </div>
+
+        <div class="bloco-secao decidido">
+          <div class="bloco-titulo">✓ DECIDIDO (DESIGN.md)</div>
+          <ul class="itens">
+            <li>Vhalgorn é o chefe maior adormecido no âmago da cripta da ilha inicial (DESIGN.md linhas 4, 8, 762-782).</li>
+            <li>A câmara de lava é uma caldeira natural aberta para o céu da noite, formando a arena do chefe (DESIGN.md linhas 782, 1397).</li>
+            <li>O grupo de quatro jogadores necessita de cadência estrita entre tanque, cura e dano para vencer (DESIGN.md linhas 89-91).</li>
+            <li>A cripta é a primeira dungeon do jogo, acessada pela capela de Pedra Alta (DESIGN.md linhas 604-605).</li>
+          </ul>
+        </div>
+
+        <div class="bloco-secao proposta">
+          <div class="bloco-titulo">? PROPOSTA (PLANEJAMENTO.md — por decidir)</div>
+          <ul class="itens">
+            <li>Mecânica de distribuição do espólio (loot): baú individual instanciado para cada jogador versus saque livre por rolagem de dados Need/Greed (PLANEJAMENTO.md, por decidir).</li>
+            <li>Fases de fúria (enrage timer) onde o chefe conjura erupções de magma adicionais.</li>
+            <li>Temporizador de renascimento do MVP na cripta após ser derrotado (ex: respawn a cada 4 horas).</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="cena-card" id="cena7">
+      <div class="cena-header">
+        <h2>7. A Guerra de Fim de Semana</h2>
+        <div class="sub">A tomada da fortaleza de fronteira: hordas, catapultas e o cerco sob a lua vermelha</div>
+      </div>
+      <div class="imagem-box">
+        <img src="cena7.png" alt="7. A Guerra de Fim de Semana" width="640" height="360">
+      </div>
+      <div class="legenda-box">
+        <div class="legenda-mostra">
+          <strong>O que a cena mostra:</strong> A guerra territorial de larga escala: a imponente fortaleza militar de pedra tem suas muralhas de 40 tiles sitiadas sob a lua vermelha colossal. Fogueiras e tochas iluminam o pátio enquanto hordas demoníacas e jogadores Caídos investem contra o portão reforçado de ferro, sob saraivadas de flechas disparadas dos adarves pelos defensores da guarnição.
+        </div>
+
+        <div class="bloco-secao decidido">
+          <div class="bloco-titulo">✓ DECIDIDO (DESIGN.md)</div>
+          <ul class="itens">
+            <li>A Guerra de Fim de Semana é a grande disputa territorial entre os Caídos e os heróis leais pela linha de fortalezas que protegem o reino (DESIGN.md linhas 360-362, 521-555).</li>
+            <li>A fortaleza segue o padrão canônico com 40 tiles de lado, muralha ciclópica com ameias e sobrado interno (DESIGN.md linhas 1457-1461, 1528, 1537).</li>
+            <li>O Rei Demônio avança a cada semana se os Caídos conquistarem a fortaleza, aproximando-se da capital (DESIGN.md linhas 524-525, 543-554).</li>
+            <li>Quem defende renasce perto, pois a cidade de apoio fica adjacente à praça de armas (DESIGN.md linha 555).</li>
+          </ul>
+        </div>
+
+        <div class="bloco-secao proposta">
+          <div class="bloco-titulo">? PROPOSTA (PLANEJAMENTO.md — por decidir)</div>
+          <ul class="itens">
+            <li>Operação de maquinário pesado de cerco (aríetes para derrubar o portão e catapultas manuseáveis por grupos) (PLANEJAMENTO.md, por decidir).</li>
+            <li>Condição exata de término: controle contínuo do centro do pátio por 15 minutos versus morte de generais comandantes.</li>
+            <li>Incentivos e recompensas fiscais/tributárias nas lojas durante a semana para a facção detentora do castelo.</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="cena-card" id="cena8">
+      <div class="cena-header">
+        <h2>8. A Interface do Jogador</h2>
+        <div class="sub">Inventário em grade, boneco de equipamento, disco de habilidades, chat e loja</div>
+      </div>
+      <div class="imagem-box">
+        <img src="cena8.png" alt="8. A Interface do Jogador" width="640" height="360">
+      </div>
+      <div class="legenda-box">
+        <div class="legenda-mostra">
+          <strong>O que a cena mostra:</strong> Composição visual simulando os painéis de menu no estilo HUD clássico de 1993: à esquerda, o paperdoll de slots corporais (elmo, peitoral, capa, arma, luvas, cinto, escudo, botas); ao centro-esquerda, a bolsa de carga em grade 4x4 com itens e poções; ao centro-direita, o disco de habilidades circular contínuo com as seis fatias coloridas interconectadas; à direita, a vitrine de compra do armazém de Tobias; e abaixo, o terminal de chat e registro de combate.
+        </div>
+
+        <div class="bloco-secao decidido">
+          <div class="bloco-titulo">✓ DECIDIDO (DESIGN.md)</div>
+          <ul class="itens">
+            <li>Identidade estética construída em breu, pedra, latão e pergaminho (provador.html; src/estilos.js).</li>
+            <li>Equipamento montado nos oito espaços canônicos do esqueleto (roupa, armadura, cabelo, elmo, capa, escudo, arma, enfeite) (DESIGN.md linhas 945-946).</li>
+            <li>O disco de habilidades como uma roda circular contínua onde fatias adjacentes formam classes de duas e três fatias (DESIGN.md linhas 135-189).</li>
+            <li>Chat com suporte a texto com caracteres latinos e diálogos em balões de fala (DESIGN.md linhas 827; conversa.js).</li>
+          </ul>
+        </div>
+
+        <div class="bloco-secao proposta">
+          <div class="bloco-titulo">? PROPOSTA (PLANEJAMENTO.md — por decidir)</div>
+          <ul class="itens">
+            <li>Capacidade da bolsa regida por peso físico dinâmico versus número estrito de compartimentos (slots) (PLANEJAMENTO.md, por decidir).</li>
+            <li>Painel de atalhos rápidos com teclas de 1 a 0 para poções e feitiços.</li>
+            <li>Filtros de abas no chat para separar mensagens locais, de guilda, sussurros e canais globais de comércio.</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+    
+
+    <article class="cena-card" id="cena9">
+      <div class="cena-header">
+        <h2>9. O Mundo: Biomas e Horizontes</h2>
+        <div class="sub">Painel panorâmico quádruplo: Ilha de Noite, Cidade Steampunk, O Navio e Montanha Oca</div>
+      </div>
+      <div class="imagem-box">
+        <img src="cena9.png" alt="9. O Mundo: Biomas e Horizontes" width="640" height="360">
+      </div>
+      <div class="legenda-box">
+        <div class="legenda-mostra">
+          <strong>O que a cena mostra:</strong> Visão panorâmica em quatro quadrantes integrando os cenários vitais do universo: no topo esquerdo, o templo no pico rochoso de Pedra Alta sob a noite estrelada; no topo direito, a metrópole industrial steampunk dos anões com canos de vapor e engrenagens monumentais; no canto inferior esquerdo, a caravela de exploração ancorada no porto litorâneo; e no canto inferior direito, as pontes suspensas sobre abismos ciclópicos no âmago da montanha oca.
+        </div>
+
+        <div class="bloco-secao decidido">
+          <div class="bloco-titulo">✓ DECIDIDO (DESIGN.md)</div>
+          <ul class="itens">
+            <li>A ilha inicial e a serra no horizonte sob céu noturno que define a atmosfera do jogo (DESIGN.md linhas 604-605, 780-782, 1397).</li>
+            <li>A cidade steampunk dos anões movida a vapor geotérmico de caldeiras de lava (DESIGN.md linhas 332, 363-364, 410-412, 570).</li>
+            <li>O navio ancorado no porto que servirá para as viagens e expansões ultramarinas (DESIGN.md linha 709).</li>
+            <li>A montanha oca que abriga a rota secreta estratégica contornando as fortalezas de fronteira (DESIGN.md linhas 360-362).</li>
+            <li>Transição fluida entre ambientes fechados escuros e áreas externas abertas (DESIGN.md linhas 598, 1599).</li>
+          </ul>
+        </div>
+
+        <div class="bloco-secao proposta">
+          <div class="bloco-titulo">? PROPOSTA (PLANEJAMENTO.md — por decidir)</div>
+          <ul class="itens">
+            <li>Travessia marítima como viagem jogável com eventos a bordo versus teletransporte cinematográfico direto ao desembarque (PLANEJAMENTO.md, por decidir).</li>
+            <li>Sistema de clima dinâmico com neblinas espessas que reduzem o campo de visão e chuvas torrenciais que afetam a velocidade de marcha.</li>
+            <li>Novas classes específicas de tecnologia steampunk (ex: Alquimista a vapor, Mosqueteiro mecânico) habilitadas após cruzar o portal anão.</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+    
+  </div>
+
+  <footer>
+    <em>Mundo Perigoso</em> — Proposta visual do book completo. Base conceitual construída a partir dos pedidos 014 a 022.
+  </footer>
+</body>
+</html>

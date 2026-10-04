@@ -1,0 +1,5 @@
+LUGAR: A Fortaleza da fronteira
+CITAÇÃO: DESIGN.md linhas 350-362, 521-555, 1457-1461, 1528, 1537
+RESOLUÇÃO: 640x360 pixels
+ESTILO: 1993 PC DOS RPG raycasting pixel art, visão na altura do olho
+DESCRIÇÃO: Muralhas ciclópicas de pedra com ameias de 40 tiles de lado, portão fortificado com rastilho de ferro forjado, pátio de armas, sobrado da guarnição e fogos de cerco.

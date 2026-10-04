@@ -1,0 +1,26 @@
+diff --git a/mundo-perigoso/sondagens/2-rede/costura.js b/mundo-perigoso/sondagens/2-rede/costura.js
+index 1efb7f5..66d3ffd 100644
+--- a/mundo-perigoso/sondagens/2-rede/costura.js
++++ b/mundo-perigoso/sondagens/2-rede/costura.js
+@@ -35,7 +35,7 @@ function trocarUma(js, de, para){
+ const INICIO_JOGADOR = "  const turn = ent.girar;";
+ const FIM_JOGADOR = "  /* --- entidades --- */";
+ /* o mapa de visitados (o automapa) e do cliente: no servidor sai */
+-const VISITADOS = /  visited\[\(P\.y\|0\)\*MW \+ \(P\.x\|0\)\] = 1;\n  for \(let y=-3;y<=3;y\+\+\) for \(let x=-3;x<=3;x\+\+\)\{\n[^\n]*\n[^\n]*\n  \}\n/;
++const VISITADOS = /  visited\[\(P\.y\|0\)\*MW \+ \(P\.x\|0\)\] = 1;\r?\n  for \(let y=-3;y<=3;y\+\+\) for \(let x=-3;x<=3;x\+\+\)\{\r?\n[^\r\n]*\r?\n[^\r\n]*\r?\n  \}\r?\n/;
+ 
+ /* O fim do passo do mundo no servidor: faisca, poeira e som sao do cliente,
+    e no servidor ninguem esvazia -- sem isto as listas cresciam sem parar. */
+diff --git a/mundo-perigoso/sondagens/5-coop/costura-coop.js b/mundo-perigoso/sondagens/5-coop/costura-coop.js
+index 331d3f5..838333b 100644
+--- a/mundo-perigoso/sondagens/5-coop/costura-coop.js
++++ b/mundo-perigoso/sondagens/5-coop/costura-coop.js
+@@ -76,7 +76,7 @@ function costurarCoop(js, preparo){
+ 
+ /* a pagina do cliente: o jogo montado, costurado, com o cliente.js dentro */
+ function montarCliente(html, codigoDoCliente){
+-  const m = html.match(/<script>\n([\s\S]*)<\/script>/);
++  const m = html.match(/<script>\r?\n([\s\S]*)<\/script>/);
+   if (!m) throw new Error("nao achei o bloco <script> do jogo montado");
+   let js = costurarCoop(m[1]);
+   js = trocarUma(js, "function update(dt, ent){", "function __updateOriginal(dt, ent){");

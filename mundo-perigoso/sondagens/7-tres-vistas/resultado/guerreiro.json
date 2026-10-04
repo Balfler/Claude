@@ -1,0 +1,79 @@
+{
+ "entrada": "folha3.png",
+ "perfil_olha_para": "direita",
+ "casca_do_contorno_px": 14,
+ "vistas": {
+  "frente": {
+   "code": 1,
+   "x0": 25,
+   "x1": 1220,
+   "y0": 71,
+   "y1": 1422,
+   "cx": 623.0676216652228
+  },
+  "perfil": {
+   "code": 2,
+   "x0": 1187,
+   "x1": 1565,
+   "y0": 80,
+   "y1": 1422,
+   "cx": 1386.1862451039203
+  },
+  "costas": {
+   "code": 3,
+   "x0": 1573,
+   "x1": 2726,
+   "y0": 71,
+   "y1": 1422,
+   "cx": 2154.2150630349347
+  }
+ },
+ "volume_de_trabalho": [
+  231,
+  75,
+  256
+ ],
+ "braco_em_t": true,
+ "corpo": {
+  "grade": [
+   140,
+   64,
+   124
+  ],
+  "voxels": 74794,
+  "cores": 54
+ },
+ "modelo_cru": {
+  "grade": [
+   231,
+   75,
+   256
+  ],
+  "voxels": 823528,
+  "cores_no_vox": 255,
+  "sorceress": [
+   235,
+   56,
+   257
+  ]
+ },
+ "cor_da_superficie": {
+  "frente": 18000,
+  "costas": 17752,
+  "perfil": 8345,
+  "espelho": 5014,
+  "vizinho": 22666
+ },
+ "fidelidade_da_silhueta": {
+  "frente": 0.86,
+  "costas": 0.971,
+  "perfil": 1
+ },
+ "tempos_ms": {
+  "recortar": 539,
+  "esculpir": 76,
+  "pintar": 429,
+  "atelie": 300
+ },
+ "avisos_do_rig": []
+}

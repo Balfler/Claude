@@ -1,0 +1,7 @@
+Pixel art sprite character turnaround sheet showing three full-body views side by side: FRONT VIEW, LEFT PROFILE SIDE VIEW (facing left), and BACK VIEW. The exact same male human character base from the reference image, exact same body pose, head, face, brown hair, feet, hands, and proportions (117 voxels high in A-pose with arms slightly away from body), now wearing full medieval fantasy STEEL PLATE ARMOR (armadura de placas): polished steel breastplate cuirass with metallic highlights, layered articulated steel pauldrons on shoulders, plate gauntlets on forearms and hands, steel faulds/tassets at waist, plate greaves covering the shins, and steel sabatons boots. Authentic 1993 PC RPG pixel art aesthetic, dark contour outlines, limited color palette, strictly flat solid light gray background (#C0C0C0), no floor shadow. Exact same height and joint alignment across all three views. Reference character pose and proportions strictly from attached image.
+
+Origem no projeto: DESIGN.md: linha 256 ("Se o personagem veste armadura pesada, tem que parecer armadura pesada"); linha 1120, 1288-1289 ("De placas sobra pouco tecido à vista, e placas têm mais volume que couro"); PLANEJAMENTO.md: linha 118 (Sondagem 7).
+Armadura: Armadura de Placas
+Vista: LADO
+Detalhes: Vista lateral (Left Profile View): virado para a esquerda, volume das placas de aço sobre o corpo sem alterar a postura nem o alinhamento das juntas.
+Estilo: Pixel art 1993, contorno escuro, paleta curta, fundo liso cinza (#C0C0C0), sem sombra no chao. Mesma pose, corpo e proporcoes do humano base.

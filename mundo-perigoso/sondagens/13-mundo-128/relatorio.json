@@ -1,0 +1,18 @@
+{
+ "mundo-64": {
+  "carregar_s": 1,
+  "montar_mundo_s": 0.7,
+  "quadro_ms": {
+   "vila": 20.1,
+   "casas": 25.3
+  }
+ },
+ "mundo-128": {
+  "carregar_s": 1.1,
+  "montar_mundo_s": 3.5,
+  "quadro_ms": {
+   "vila": 35,
+   "casas": 40.3
+  }
+ }
+}

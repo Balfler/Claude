@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Pr&#xe9;via do jogo</title>
+<style>
+html,body{margin:0;background:#0e0b08;color:#e6d8c0;font:12px/1.3 "Segoe UI",system-ui,sans-serif}
+#folha{display:grid;gap:6px 4px;padding:8px;align-items:end}
+.rot{font:11px "Lucida Console",monospace;color:#9c8b72;text-align:center;align-self:center}
+.nome{font:11px "Lucida Console",monospace;color:#c8963c;writing-mode:vertical-rl;transform:rotate(180deg);align-self:center}
+canvas{image-rendering:pixelated;display:block;background:radial-gradient(60% 55% at 50% 60%,#2e2418,#1b1510 70%)}
+#estado{position:fixed;right:8px;top:6px;color:#9c8b72}
+</style>
+</head>
+<body>
+<div id="estado">esperando o personagem&hellip;</div>
+<div id="folha"></div>
+<canvas id="screen" width="320" height="200" hidden></canvas>
+<!-- O assador e as pecas sao o codigo do proprio jogo (src/). p3e.js so
+     entra depois que o atelie manda o personagem, porque le o corpo no
+     carregamento. -->
+<script src="../src/mapa.js"></script>
+<script src="../src/ilha.js"></script>
+<script src="../src/cores.js"></script>
+<script src="../src/p2.js"></script>
+<script src="../src/p3.js"></script>
+<script src="../src/p3b.js"></script>
+<script src="previa.js"></script>
+</body>
+</html>

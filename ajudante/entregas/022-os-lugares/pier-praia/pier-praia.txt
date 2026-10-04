@@ -1,0 +1,5 @@
+LUGAR: O píer e a praia
+CITAÇÃO: DESIGN.md linhas 280-281, 705-707, 1437, 1454, 1590
+RESOLUÇÃO: 640x360 pixels
+ESTILO: 1993 PC DOS RPG raycasting pixel art, visão na altura do olho
+DESCRIÇÃO: Píer de tábuas de carvalho sobre o mar calmo, praia de areia pontilhada de conchas, estrada subindo em curva até o portão de pedra da vila sob a névoa litorânea.

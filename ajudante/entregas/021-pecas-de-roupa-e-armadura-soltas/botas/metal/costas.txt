@@ -1,0 +1,1 @@
+1993 pixel art: grevas e escarpes de placas de metal sobre o humano base. DESIGN.md linhas 900, 1007-1020, 1145; src/p3e.js PECAS.armadura.placas. [vista: costas]

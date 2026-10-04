@@ -1,0 +1,25 @@
+diff --git a/mundo-perigoso/src/p3e.js b/mundo-perigoso/src/p3e.js
+index 7fb1759..0dd0362 100644
+--- a/mundo-perigoso/src/p3e.js
++++ b/mundo-perigoso/src/p3e.js
+@@ -603,6 +603,9 @@ function novaFornada(e, nevoa, poses, nRot){
+       const q = assarRotacoes(estado.pele, D.DX, D.DY, D.DZ, mats, 1, 1, P_PERSONAGEM, CONTORNO_DO_PERSONAGEM, 0, giro, nevoa || 0)[0];
+       q.longe = assarRotacoes(estado.peleLonge, rr.DX, rr.DY, rr.DZ, mats, 1, 1, P_PERSONAGEM, CONTORNO_DO_PERSONAGEM, 0, giro, nevoa || 0)[0];
+       quadros[ip][r] = q;
++      /* assado o ultimo rumo, a pele desta pose nao serve mais: sem soltar,
++         a fornada pronta segurava as vinte peles, uns 55 MB por visual */
++      if (r === rumos - 1) estado.pele = estado.r = estado.peleLonge = null;
+     });
+   });
+   let feitas = 0;
+@@ -613,7 +616,9 @@ function novaFornada(e, nevoa, poses, nRot){
+       const t0 = performance.now();
+       do {
+         if (feitas >= tarefas.length) return true;
+-        tarefas[feitas++]();
++        const t = tarefas[feitas];
++        tarefas[feitas++] = null;                 // a tarefa feita solta o que ela prendia
++        t();
+       } while (performance.now() - t0 < ms);
+       return feitas >= tarefas.length;
+     }

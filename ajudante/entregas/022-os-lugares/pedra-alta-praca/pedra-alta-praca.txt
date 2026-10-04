@@ -1,0 +1,5 @@
+LUGAR: Pedra Alta — A praça
+CITAÇÃO: DESIGN.md linhas 699-701, 1456, 1589
+RESOLUÇÃO: 640x360 pixels
+ESTILO: 1993 PC DOS RPG raycasting pixel art, visão na altura do olho
+DESCRIÇÃO: Platô central com calçamento de lajota, poço de pedra no centro, casas de madeira, taverna, armazém e ferraria sob a escarpa rochosa.

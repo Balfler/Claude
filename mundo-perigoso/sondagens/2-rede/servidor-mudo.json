@@ -1,0 +1,126 @@
+{
+ "maquina": "13th Gen Intel(R) Core(TM) i5-13420H x12",
+ "node": "v24.16.0",
+ "linhas": [
+  {
+   "n": 1,
+   "passo": 0.05578399999999999,
+   "p99": 0.3638,
+   "max": 3.8188,
+   "jsonKBs": 9.978857421875,
+   "binKBs": 4.06201171875,
+   "coisas": 19.8425,
+   "mortes": 2,
+   "bichosVivos": 20,
+   "espalhados": false
+  },
+  {
+   "n": 2,
+   "passo": 0.04936300000000005,
+   "p99": 0.198,
+   "max": 0.4478,
+   "jsonKBs": 11.359716796874999,
+   "binKBs": 4.59453125,
+   "coisas": 22.2725,
+   "mortes": 2,
+   "bichosVivos": 19.925,
+   "espalhados": false
+  },
+  {
+   "n": 4,
+   "passo": 0.10635825000000004,
+   "p99": 0.4503,
+   "max": 1.0772,
+   "jsonKBs": 13.2207275390625,
+   "binKBs": 5.3340087890625,
+   "coisas": 25.528125,
+   "mortes": 1,
+   "bichosVivos": 19.743333333333332,
+   "espalhados": false
+  },
+  {
+   "n": 8,
+   "passo": 0.09836091666666673,
+   "p99": 0.4086,
+   "max": 1.1654,
+   "jsonKBs": 16.231127929687503,
+   "binKBs": 6.5025146484375,
+   "coisas": 30.041875,
+   "mortes": 1,
+   "bichosVivos": 19.694166666666668,
+   "espalhados": false
+  },
+  {
+   "n": 16,
+   "passo": 0.18266083333333336,
+   "p99": 0.5807,
+   "max": 1.2705,
+   "jsonKBs": 23.41575012207031,
+   "binKBs": 9.17720947265625,
+   "coisas": 41.1878125,
+   "mortes": 0,
+   "bichosVivos": 19.4425,
+   "espalhados": false
+  },
+  {
+   "n": 32,
+   "passo": 0.3497070833333335,
+   "p99": 0.9115,
+   "max": 1.4893,
+   "jsonKBs": 37.46062469482422,
+   "binKBs": 14.446102905273436,
+   "coisas": 62.915546875,
+   "mortes": 0,
+   "bichosVivos": 19.25583333333333,
+   "espalhados": false
+  },
+  {
+   "n": 64,
+   "passo": 0.5866073333333339,
+   "p99": 1.6675,
+   "max": 2.143,
+   "jsonKBs": 66.43240966796876,
+   "binKBs": 25.412036132812503,
+   "coisas": 109.048125,
+   "mortes": 0,
+   "bichosVivos": 18.3275,
+   "espalhados": false
+  },
+  {
+   "n": 4,
+   "passo": 0.09024358333333335,
+   "p99": 0.5873,
+   "max": 1.5969,
+   "jsonKBs": 13.63172607421875,
+   "binKBs": 5.3869873046875005,
+   "coisas": 25.885625,
+   "mortes": 4,
+   "bichosVivos": 19.759166666666665,
+   "espalhados": true
+  },
+  {
+   "n": 20,
+   "passo": 0.25944575000000003,
+   "p99": 1.1528,
+   "max": 1.6956,
+   "jsonKBs": 26.7967822265625,
+   "binKBs": 10.368994140625,
+   "coisas": 46.648625,
+   "mortes": 10,
+   "bichosVivos": 19.439166666666665,
+   "espalhados": true
+  },
+  {
+   "n": 64,
+   "passo": 0.6202805833333332,
+   "p99": 1.7155,
+   "max": 2.2401,
+   "jsonKBs": 61.92469177246093,
+   "binKBs": 23.851000976562503,
+   "coisas": 100.9472265625,
+   "mortes": 9,
+   "bichosVivos": 18.19,
+   "espalhados": true
+  }
+ ]
+}

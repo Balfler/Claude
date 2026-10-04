@@ -1,0 +1,1 @@
+1993 pixel art: botas de montaria de couro de cano alto sobre o humano base. DESIGN.md linhas 900, 1007-1020; src/p3e.js PECAS.armadura.couro. [vista: sozinha]

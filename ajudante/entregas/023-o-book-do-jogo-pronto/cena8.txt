@@ -1,0 +1,2 @@
+1993 PC DOS RPG UI mockup: Telas de interface no estilo do jogo atual — inventário em grade 4x4, paperdoll de equipamento corporal, disco de habilidades de 6 fatias interligadas, loja de NPC e janela de chat.
+CITAÇÃO: DESIGN.md linhas 135-189, 945-946; PLANEJAMENTO.md por decidir (inventário, interface, loja).

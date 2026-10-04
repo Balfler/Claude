@@ -1,0 +1,7 @@
+Pixel art sprite character turnaround sheet showing three full-body views side by side: FRONT VIEW, LEFT PROFILE SIDE VIEW (facing left), and BACK VIEW. An elderly wise medieval village elder named Amadeu (who remembers when the island was only stone and seagulls). Authentic 1993 PC RPG pixel art aesthetic, exact proportions (117 voxels high in A-pose with arms slightly away from body) matching the reference mold. He has long bushy white hair and a full white beard, gentle weathered eyes, wearing an ankle-length faded coarse woven wool tunic in muted gray-brown, a simple rope cord belt, warm cloth mantle draped over shoulders, and soft woolen wrap shoes. Dark contour outlines, limited color palette, strictly flat solid light gray background (#C0C0C0), no floor shadow. Exact same height and joint alignment across all three views.
+
+Origem no projeto: src/conversa.js: linha 37; src/ilha.js: linha 55; DESIGN.md: linha 397 ("Camponês"), 586-595 ("povo que chegou pelo mar").
+Morador: Amadeu (Ancião)
+Vista: COSTAS
+Detalhes: Vista traseira (Back View): manto e longos cabelos brancos caindo sobre as costas.
+Estilo: Pixel art 1993, contorno escuro, paleta curta, fundo liso cinza (#C0C0C0), sem sombra no chao. Proporcoes do molde de 117 voxels.

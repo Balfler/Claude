@@ -1,0 +1,341 @@
+{
+  "asset": {
+    "version": "2.0",
+    "generator": "THREE.GLTFExporter r182"
+  },
+  "scenes": [
+    {
+      "nodes": [
+        0
+      ]
+    }
+  ],
+  "scene": 0,
+  "nodes": [
+    {
+      "name": "Armature",
+      "children": [
+        1,
+        23
+      ]
+    },
+    {
+      "translation": [
+        0,
+        0.8566695005333943,
+        -0.008151587483242333
+      ],
+      "name": "Pelvis",
+      "children": [
+        2,
+        15,
+        19
+      ]
+    },
+    {
+      "translation": [
+        0,
+        0.13362321259670526,
+        -0.008551784107285285
+      ],
+      "name": "Spine1",
+      "children": [
+        3
+      ]
+    },
+    {
+      "translation": [
+        0,
+        0.13362321259670548,
+        -0.008551784107285285
+      ],
+      "name": "Spine2",
+      "children": [
+        4
+      ]
+    },
+    {
+      "translation": [
+        0,
+        0.17816428346227384,
+        -0.011402378809713728
+      ],
+      "name": "Spine3",
+      "children": [
+        5,
+        7,
+        11
+      ]
+    },
+    {
+      "translation": [
+        0,
+        0.03842779123810728,
+        -0.005847598962699254
+      ],
+      "name": "Neck",
+      "children": [
+        6
+      ]
+    },
+    {
+      "translation": [
+        0,
+        0.0608549623628849,
+        0.04731583527942238
+      ],
+      "name": "Head"
+    },
+    {
+      "translation": [
+        0.06986880826145431,
+        -0.005764168685715962,
+        0.0009222442093335988
+      ],
+      "name": "L_Collar",
+      "children": [
+        8
+      ]
+    },
+    {
+      "translation": [
+        0.1297563581998436,
+        -0.010704884702044186,
+        0.0017127392459052619
+      ],
+      "name": "L_Shoulder",
+      "children": [
+        9
+      ]
+    },
+    {
+      "translation": [
+        0.0714425706212601,
+        -0.2396654555732625,
+        0.00708751279270115
+      ],
+      "name": "L_Elbow",
+      "children": [
+        10
+      ]
+    },
+    {
+      "translation": [
+        0.015446392026496789,
+        -0.22993589039155196,
+        0.029658773668146905
+      ],
+      "name": "L_Wrist"
+    },
+    {
+      "translation": [
+        -0.06986880826145431,
+        -0.005764168685715962,
+        0.0008320354794761676
+      ],
+      "name": "R_Collar",
+      "children": [
+        12
+      ]
+    },
+    {
+      "translation": [
+        -0.1297563581998436,
+        -0.010704884702044186,
+        0.0015452087475986112
+      ],
+      "name": "R_Shoulder",
+      "children": [
+        13
+      ]
+    },
+    {
+      "translation": [
+        -0.0714425706212601,
+        -0.2396654555732625,
+        0.0066781502026308425
+      ],
+      "name": "R_Elbow",
+      "children": [
+        14
+      ]
+    },
+    {
+      "translation": [
+        -0.015446392026496789,
+        -0.22993589039155196,
+        0.03128006276518783
+      ],
+      "name": "R_Wrist"
+    },
+    {
+      "translation": [
+        0.01870106848263289,
+        -0.05896665929596799,
+        0
+      ],
+      "name": "L_Hip",
+      "children": [
+        16
+      ]
+    },
+    {
+      "translation": [
+        0.1059727214015866,
+        -0.3341444026771521,
+        -0.010727321852353448
+      ],
+      "name": "L_Knee",
+      "children": [
+        17
+      ]
+    },
+    {
+      "translation": [
+        0.017390713062518222,
+        -0.30509380359220245,
+        -0.024278870025395045
+      ],
+      "name": "L_Ankle",
+      "children": [
+        18
+      ]
+    },
+    {
+      "translation": [
+        0,
+        -0.007003891050583658,
+        0.10085603112840466
+      ],
+      "name": "L_Foot"
+    },
+    {
+      "translation": [
+        -0.01870106848263289,
+        -0.05896665929596799,
+        0
+      ],
+      "name": "R_Hip",
+      "children": [
+        20
+      ]
+    },
+    {
+      "translation": [
+        -0.1059727214015866,
+        -0.3341444026771521,
+        -0.010959532318098989
+      ],
+      "name": "R_Knee",
+      "children": [
+        21
+      ]
+    },
+    {
+      "translation": [
+        -0.017390713062518222,
+        -0.30509380359220245,
+        -0.024046659559649505
+      ],
+      "name": "R_Ankle",
+      "children": [
+        22
+      ]
+    },
+    {
+      "translation": [
+        0,
+        -0.007003891050583658,
+        0.10085603112840466
+      ],
+      "name": "R_Foot"
+    },
+    {
+      "name": "pixel-art-character-1_png",
+      "mesh": 0,
+      "skin": 0
+    }
+  ],
+  "materials": [
+    {
+      "pbrMetallicRoughness": {
+        "metallicFactor": 0,
+        "roughnessFactor": 1,
+        "baseColorTexture": {
+          "index": 0,
+          "texCoord": 0
+        }
+      },
+      "doubleSided": true
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    }
+  ],
+  "samplers": [
+    {
+      "magFilter": 9728,
+      "minFilter": 9728,
+      "wrapS": 33071,
+      "wrapT": 33071
+    }
+  ],
+  "images": [
+    {
+      "mimeType": "image/png",
+      "bufferView": 7
+    }
+  ],
+  "meshes": [
+    {
+      "primitives": [
+        {
+          "mode": 4,
+          "attributes": {
+            "POSITION": 0,
+            "NORMAL": 1,
+            "TEXCOORD_0": 2,
+            "JOINTS_0": 3,
+            "WEIGHTS_0": 4
+          },
+          "indices": 5,
+          "material": 0
+        }
+      ]
+    }
+  ],
+  "skins": [
+    {
+      "inverseBindMatrices": 6,
+      "joints": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22
+      ],
+      "skeleton": 0
+    }
+  ]
+}

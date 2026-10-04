@@ -1,0 +1,308 @@
+diff --git a/DESIGN.md b/DESIGN.md
+index f30b8e0..1d71a74 100644
+--- a/DESIGN.md
++++ b/DESIGN.md
+@@ -1,4 +1,4 @@
+-# Mundo Perigoso — documento de design
++﻿# Mundo Perigoso — documento de design
+ 
+ > **Estado:** planejamento. Existe um protótipo jogável single-player
+ > (*A Cripta de Vhalgorn*). As mecânicas de MMO ainda não começaram.
+@@ -725,31 +725,6 @@ Planos do Leandro para a ilha nova:
+ 
+ ---
+ 
+-## Em aberto
+-
+-- **Exigências e nomes dos híbridos**, quais trios existem e onde ficam as
+-  árvores dos pares distantes e dos trios. Ver *a árvore de habilidades é um disco*.
+-- **O que se perde de itens ao morrer.** A experiência está decidida: 5%.
+-- **Como o mago digita sem virar datilografia** — combos curtos de músculo, ou
+-  ritual longo feito em segurança? A vulnerabilidade durante o feitiço é
+-  desejada; a chatice não.
+-- **Loot** — nada definido. A progressão do personagem está decidida, ver
+-  *sem classe fixa*.
+-- **Quantas fortalezas, e o que acontece quando os jogadores vencem.** O ritmo está
+-  decidido: uma guerra por fim de semana. As opções para a vitória estão em *a
+-  guerra de fim de semana*, e uma enquete pode decidir.
+-- **O mecanismo de PvP entre jogadores normais.** Ele existe, mas falta definir
+-  como. Contra caídos, o PvP é aberto.
+-- **A definição de jogador ativo:** o nível mínimo, o tempo jogado e a janela de
+-  dias que contam para as vagas de caídos.
+-- **Nome do jogo.**
+-- **O que fica igual entre eras**, além da ilha: as capitais? a cidade
+-  steampunk?
+-- **O idioma.** A conversa com morador é por palavra-chave em português, e os
+-  textos estão no código. Português primeiro é estratégia legítima — a
+-  comunidade brasileira de Tibia é enorme. Se vier inglês, separar os textos
+-  numa tabela cedo é barato; tarde, é caro.
+-
+ ## Riscos conhecidos
+ 
+ - **Traição e PvP contra caídos.** Morrer por confiar em alguém pode fazer gente
+@@ -1733,263 +1708,5 @@ Escada, não salto:
+ Sem pressa é vantagem. Cave Story levou ~5 anos de uma pessoa só; Stardew
+ Valley, ~4,5; Dwarf Fortress passa de duas décadas.
+ 
+-## Lista de tarefas
+-
+-Foco atual declarado: **aparência e estilo**, e o planejamento do personagem. As
+-mecânicas de MMO vêm bem depois. A ordem abaixo é a combinada; cada item aponta
+-para a seção que tem os detalhes.
+-
+-### Feito
+-
+-- **Céu e névoa.** A estética de 93 aguenta espaço aberto.
+-- **Rotações dos seis monstros**, com morte e cadáver.
+-- **Editor de mapa com Ver no jogo**, e a ilha de teste com o esboço de Pedra Alta.
+-- **Teste de desempenho.** A ilha desenha 60 tiles, e o quadro fica entre 4 e 6,5 ms.
+-- **Cenário em voxel:** árvores, pedras, móveis de rua e moradores.
+-- **Simulador de build com o disco**, as especializações, a morte e o mago da
+-  memória.
+-- **Painel de ajuste no jogo** (tecla P): velocidade com H e J mostrada em número,
+-  campo de visão, altura dos olhos, resolução e contador de quadro, guardados no
+-  navegador. A régua do editor mede na velocidade guardada. Os inimigos
+-  continuam na velocidade de antes, então achar a velocidade certa pode pedir
+-  reajustar os inimigos junto. Um número que o painel já mostra: 100 são uns 9,4
+-  m/s, velocidade de corrida de velocista.
+-- **Pixels menos grossos na tela grande.** A tela cresce só por números inteiros
+-  de pixels do monitor, e a resolução do mundo é opção: 320×200, que continua
+-  padrão, 480×300 ou 640×400.
+-- **Simulador: a árvore própria de cada especialização**, por fora do disco, e a
+-  primeira traição, a do clérigo que vira necromante. Ver *a árvore de
+-  habilidades é um disco* e *os caídos*.
+-- **Editor: começar daqui e carimbos.** Clicar num tile e arrastar abre o jogo ali,
+-  olhando para onde se arrastou. Casa de madeira, casa de pedra e escada como
+-  carimbos que giram, e copiar e colar pedaços do mapa com o relevo junto.
+-- **Casas com cara de casa.** Telhado de quatro águas em toda casa, com a beira no
+-  alto da parede e uma água ao sol e outra na sombra; chaminé em metade das casas
+-  grandes; janela no meio das paredes de fora e quina nas pontas e ao lado da
+-  porta; e a cerca como terreno novo, uma parede de dois degraus que se pula.
+-  Ficou de fora o toldo.
+-- **O personagem em 128 por tile, por completo:** o molde de 117 pixels, o
+-  esqueleto de doze juntas, o conversor de três vistas, oito espaços de peça
+-  sobre o mesmo corpo, vinte poses por cinemática inversa (parado, respirar,
+-  andar, correr, pulo, atacar, conjurar, bloquear, arco — passo e corrida
+-  puxados pela distância andada), a arma certa na mão conforme a equipada de
+-  verdade, assar em segundo plano sem travar o jogo e a cópia de meia
+-  resolução para longe. Os moradores e o provador já usam tudo isso. O corpo
+-  em si é um desenho provisório, convertido do desenho de referência sem a
+-  vista de lado — **falta o Leandro desenhar as três vistas de verdade**, e
+-  trocar é rodar `editor/personagem.js` de novo, sem mexer em código. As
+-  peças de roupa e equipamento continuam de cápsula e esperam o mesmo
+-  desenho. Ver *pendente e importante — o personagem composto por peças*.
+-- **Terceira pessoa no jogo** (tecla X). A câmera fica atrás e um pouco acima da
+-  cabeça e para antes de parede, piso e teto. O jogador é o boneco guardado no
+-  provador, com os oito rumos e o passo, então as costas aparecem com a luz e a
+-  névoa de verdade.
+-- **Mais de um mapa.** O jogo abre o mapa do endereço, com a ilha embutida no
+-  HTML. A entrada de dungeon aparece no jogo, e a da capela de Pedra Alta desce
+-  para a cripta, que é a primeira dungeon da ilha; terminar a cripta oferece a
+-  volta. Trocar de mapa recarrega a página.
+-- **O jogo abre na ilha, e a velocidade padrão é 65.** Sem endereço abre Pedra
+-  Alta, e a cripta abre com `?mapa=cripta`. A tela de título, a de morte e o
+-  mapa dizem o nome do lugar.
+-
+-- **A fatia pequena da ilha**, em `mapas/ilha.mapa`: o jogador chega pela ponta de
+-  um píer de tábua a leste, com o navio parado ao lado, barris, caixotes e
+-  lampiões. Uma estrada de terra batida vai da praia até o portão de Pedra Alta —
+-  dois pilares de pedra com arco coberto e paliçada dos lados — ao pé da
+-  escadaria. Na praia, a casa do barqueiro Josias. Um teste anda do píer até a
+-  entrada da cripta, para nenhum degrau alto prender o jogador no porto.
+-- **Conversa por palavras-chave e bolsa.** Enter abre a linha de fala; "oi" perto
+-  de um morador começa a conversa, e as palavras que ele entende aparecem em azul
+-  nas falas dele. Os sete moradores de Pedra Alta têm falas próprias: Tobias vende
+-  poção e cristal, Bruno vende escudo, a Irmã Clarice cura, e o Velho Amadeu é o
+-  primeiro a falar do rei demônio e da lua vermelha. A bolsa guarda o ouro e o que
+-  se comprou. As falas são rascunho, para testar o formato.
+-
+-- **As quatro mudanças antes do multiplayer:** simulação separada do som, passo
+-  fixo de 1/60 s, entrada como dado e nenhum `setTimeout`. Ver *feito — o que
+-  fazer antes do multiplayer*.
+-
+-- **A tela em 640×360**, em 16:9 e pixel quadrado, com 320×180 de opção na
+-  tecla T e campo de visão de 96°. O mundo vai até embaixo: o painel saiu da
+-  faixa e foi para os dois cantos de baixo — rosto, vida e mana de um lado;
+-  escudo, armas e selo do outro —, e as telas de título, morte e vitória foram
+-  rearrumadas para a altura nova. Um ajuste guardado antes da mudança só
+-  aproveita velocidade, olhos e contador. A arma e o rosto ainda são os desenhos
+-  de antes, ampliados. Ver *estética de 1993, jogo de 2026*.
+-
+-### A fazer, em ordem
+-
+-**Em andamento: o canteiro**, a ferramenta de criação de mundo (ver *o
+-canteiro*, em decisões técnicas), em fatias que deixam o jogo jogável:
+-
+-1. ~~As medições e as cinco decisões.~~ **Feito.**
+-2. ~~O motor: geometria montada uma vez, em pedaços; peças e andares;
+-   remontar sem recarregar.~~ **Feito** — ver *feito: o motor em pedaços*.
+-3. ~~O `MAPA 2`, com a conversão do `MAPA 1`.~~ **Feito.**
+-4. ~~O micro, com um estilo de casa.~~ **Feito.**
+-5. ~~O macro.~~ **Feito** — relevo, rampa, traço, encosta de pedra, vegetação com regra e regiões.
+-6. ~~A revisão antes do catálogo: estilos pintados, refazer só o que mudou, id
+-   de peça.~~ **Feito** — ver *feito: a revisão antes do catálogo*.
+-7. A grade de andar, antes do catálogo: é ela que diz se se anda, se prende e
+-   até onde se chega, e cada tipo de peça novo ganha de graça o teste de que
+-   se passa pela porta e se sobe a escada. **Feita** (`src/andar.js`), com as
+-   perguntas de física do próprio motor, e na tela do macro: a régua mede o
+-   caminho andando e o alcance pinta o chão sem caminho do início do
+-   jogador. Ela achou um bug do motor no caminho — água funda barrava em
+-   qualquer altura, e nenhuma ponte servia.
+-8. O catálogo completo, com os tipos descritos como formas simples — pano com
+-   vãos, caixa, plano inclinado, polígono extrudado, arco — e os encaixes
+-   saindo delas. **Os tipos estão feitos**: 68, nas sete categorias, em
+-   todos os oito estilos, com a miniatura desenhada pelo motor e a folha do
+-   catálogo na linha de comando. A tela do catálogo no micro (miniaturas,
+-   categorias, busca, barra 1–9), o encaixe, o giro de 45°, o conta-gotas e o
+-   estilo de uma peça também. E a seleção em caixa (copiar, colar, girar,
+-   espelhar, salvar e abrir modelo) e o lote que ergue uma casa. **O item 8
+-   está feito.**
+-9. Os marcos: **feitos** — o formato com os campos de cada tipo, a semente
+-   que sorteia a passagem secreta, a tela de pôr e editar nos dois modos, e
+-   a entrada e a saída em par no motor. As regras de jogo de porta trancada,
+-   alavanca, armadilha, ninho, luz, som e gatilho ainda não: o dado está
+-   guardado, esperando a decisão.
+-10. A validação inteira: **feita** — o formato, as ligações entre os mapas
+-    (o par da entrada e da saída, a chave em baú de outro mapa, o morador com
+-    conversa), as peças soltas, repetidas e enterradas, e com o motor o
+-    alcance andando dos marcos e do chão, a escada que não sobe e o pior
+-    quadro, medido. A lista clicável leva ao lugar nos dois modos; exportar
+-    para `mapas/` só sem erro, no canteiro e na linha de comando. No caminho,
+-    o harness do teste ficou três vezes mais rápido no quadro (os globais do
+-    jogo viram parâmetros: na vm, todo nome global passa pelo interceptador),
+-    e a medida do quadro no node mostrou que as texturas feitas em canvas
+-    ficavam vazias sem navegador. Resolvido com um canvas 2D em software só
+-    para o node (`teste/canvas.js`), sem mexer no visual do jogo: com ele
+-    saem a "vista" em PNG (`cli.js vista`) e o tempo do quadro no node
+-    perto do navegador (10 ms contra 8 no pior lugar da ilha). A planta em
+-    PNG (`cli.js planta`) usa a mesma cor do macro.
+-16. **A próxima fase, planejada em 24/9**: o relevo e o conteúdo (ver
+-    *geografia* e *as classes sociais e a mobília*). A montanha de hoje não
+-    convence porque o chão é plano por tile e sobe em degraus de parede
+-    vertical (vira escadaria), o relevo com ruído sobe um degrau por tile
+-    (uns 14°, colina), a vista acaba em 60 tiles, e a encosta tem a mesma
+-    textura e a mesma luz de cima a baixo. A ordem:
+-    1. o chão inclinado: altura por canto do tile, como o telhado do terreno
+-       já faz; penhasco vertical só onde é íngreme de verdade; a física e a
+-       grade de andar com a inclinação;
+-    2. a serra no macro — a linha da crista, ruído de cristas e erosão —, o
+-       material pela inclinação e pela altitude, e o relevo de longe (ver *a
+-       silhueta do relevo além da névoa* e *juntar os tiles distantes*);
+-    3. a montanha oca: uma segunda camada de terreno, a casca, com altura por
+-       canto por cima da caverna. A boca é onde ela acaba, a grade de andar
+-       já entende dois pisos no mesmo ponto, e a caverna só se desenha com a
+-       câmera dentro dela ou perto da boca;
+-    4. as travessias sem nado;
+-    5. a mobília por classe, e o lote que mobilia;
+-    6. os geradores — fazenda, acampamento, moinho, pedreira, mina,
+-       cemitério — e o arruinar, que tira peças de qualquer modelo e faz a
+-       ruína: cada casa, torre e forte vira também uma ruína.
+-15. **A segunda volta no canteiro (24/9)**: "ainda não tem como botar portas
+-    e janelas funcionais, não tem forro, e o buraco que você fechou tá
+-    claramente desalinhado". Feito: a textura presa no mundo, e não em cada
+-    peça (a empena continua a pedra da parede); o forro no último andar do
+-    lote e o avesso do telhado de forro; a porta, a vidraça e a veneziana que
+-    abrem e fecham — U no canteiro, E no jogo —, fechadas barrando o corpo e
+-    não a conta de quem alcança o quê; a grade levadiça e o portão de cerca
+-    também; a folha de porta solta no batente do arco; a folha de tábua, a
+-    vidraça e a veneziana com desenho próprio. O lote vira as paredes com o
+-    lado de dentro para dentro. O conteúdo do pronto foi refeito com elas.
+-14. **A revisão das peças, depois do teste do Leandro no canteiro (24/9)**:
+-    quase tudo parecia folha — a caixa, o pano e o prisma saíam com as
+-    laterais viradas para dentro, e só 2 dos 68 tipos eram sólidos de todo
+-    lado. Corrigido nas primitivas, com teste que desenha toda peça de 65
+-    direções. E: a parede de pedra de vila com um quarto de tile (era a da
+-    madeira); a empena que desce até a parede, que fechava a ponta do
+-    telhado do lote em degraus vazados; trocar a parede por janela, porta ou
+-    arco mirando nela; a folha de porta no batente; piso no térreo e pilar
+-    nas quinas das casas do lote. O conteúdo do pronto foi refeito com elas.
+-13. **Os extras do macro**: feitos — o relevo com ruído e semente (andável:
+-    um degrau por tile), o calor do vazio (a regra de algo novo a cada 60 a
+-    120 tiles, pintada) e a vista de um ponto. O vazio mostra de cara que a
+-    ilha de 650, fora de Pedra Alta e da serra, está vazia.
+-12. **O pronto**: feito, em `mapas/ilha-650.mapa` e `mapas/gruta.mapa` — a
+-    montanha que se sobe (a rocha de encosta suave virou encosta de pedra, e
+-    uma trilha em rampa vai da fortaleza ao pico), Pedra Alta com cinco casas,
+-    a ponte de pedra e os moradores, a fortaleza com fosso e ponte levadiça,
+-    a gruta de três salas nos dois estilos com a volta em par, e as regiões.
+-    Validação sem erro, pior quadro de 10 ms. **Para o Leandro decidir**: os
+-    nomes (das regiões, das placas), se a ilha de 650 passa a ser a ilha do
+-    jogo, e como as terras do outro lado dos rios se ligam — ponte, vau ou
+-    barco. Ver *o conteúdo do pronto*, no README. A travessia sem nado ficou
+-    decidida em 24/9 — ver *geografia*.
+-11. ~~Aposentar o editor antigo, quando o canteiro cobrir tudo o que ele faz.~~
+-    **Feito**: o macro ganhou o que só ele tinha — o mapa novo com tamanho e
+-    dungeon, nome, mar, semente, redimensionar, a imagem de referência, as
+-    camadas da vista, o conta-gotas e o carimbo, que agora leva também as
+-    peças e os campos dos marcos --, e `editor.html`, `tela.js` e
+-    `painel.js` saíram. Os módulos que o canteiro e o ateliê usam ficaram
+-    em `editor/`.
+-
+-Ele cobre os itens 4 (encosta e rampa) e 6 (otimizar o desenho) da lista de
+-baixo.
+-
+-Decidido: fechar o personagem antes de seguir para o resto — sem ele o resto
+-do projeto fica sem chão. A lista de baixo vem depois disso.
+-
+-1. **Acabar o personagem.** O que falta, por ordem de dependência:
+-   - a espada e o arco a acompanhar a orientação do antebraço, não só a
+-     posição da mão — é o que deve abrir espaço para golpes mais largos sem
+-     estourar a grade (ver o limite anotado em *pendente e importante*);
+-   - decidir a mecânica do bloqueio (segurar uma tecla? uma janela de tempo,
+-     tipo aparar?) e a do arco como arma de verdade (mira, munição, dano) —
+-     as poses já existem e esperam a regra;
+-   - redesenhar a andada de lado e a andada para trás, hoje tocando o mesmo
+-     ciclo de frente para qualquer direção real do movimento;
+-   - o Leandro desenhar as três vistas de verdade do humano, trocando o
+-     provisório sem mexer em código (`editor/personagem.js`);
+-   - depois disso, aplicar o mesmo corpo desenhado às criaturas do mundo,
+-     para ficarem tão dinâmicas quanto o personagem ficou.
+-2. **O cenário de 37 para 64 voxels por tile.**
+-3. **A silhueta do relevo além da névoa**, no motor. Ver *a montanha, as cavernas
+-   e o porto*.
+-4. ~~**Encosta de pedra e ferramenta de rampa** no editor, para montanha que se
+-   sobe.~~ **Feito** no canteiro, no macro.
+-5. **A ilha nova, maior**, desenhada pelo Leandro do zero. Quando a geografia
+-   estiver pronta, entram a cidade, as coisas e o porto na ilhota, e as entradas
+-   das dungeons fechadas desde o começo — caverna com grade, poço lacrado, o
+-   navio que não zarpa. Ver *escala*.
+-6. **Otimizar o desenho antes do co-op.** Dentro de casa, em 640×360, foram 20 ms
+-   por quadro.
+-7. **Co-op de 2 a 4 jogadores**, o segundo degrau de *o caminho*. Com as quatro
+-   mudanças feitas, falta escolher o transporte — WebRTC entre os navegadores ou
+-   um servidor pequeno de WebSocket — e decidir quem manda na simulação. O
+-   servidor fica para depois.
+-
+-### Sem ordem ainda
+-
+-- **Luz das tochas e dos lampiões**, que hoje não iluminam nada, e a luz dinâmica
+-  dos monstros.
+-- **Som ao ar livre:** mar, vento, e passo diferente na areia, na grama, na pedra e
+-  na madeira.
+-- **Água:** espuma na beira e respingo ao entrar. Nado não: a água funda é
+-  barreira, e o rio se atravessa pelo que está em *geografia*.
+-- **Bichos de ilha inicial**, como rato, lobo, cobra e caranguejo. Os de hoje são
+-  monstros de cripta.
+-- **O navio** aparecendo no jogo; hoje o editor tem, e o jogo não desenha.
+-- **Sair da cripta pelo começo**, sem ter de terminar, e a cripta lembrar o que já
+-  foi feito nela.
+-- **Um conversor de arte de verdade.** O que fez o cadáver do diabrete foi um
+-  script de uso único, e mais imagens vão chegar.
+-- **Juntar os tiles distantes** quando o alcance passar de 90, e o mirante com a
+-  espada no pico.
+-- **Salvar o personagem localmente**, antes de existir servidor.
+-- **Chat de texto.** No Tibia ele é o jogo social, e aqui é por onde o
+-  conhecimento circula.
+-
+-### Higiene do projeto
+-
+-- ~~**Colocar em git.**~~ **Feito.** O fonte mora em `mundo-perigoso/` e o
+-  HTML jogável é gerado por `mundo-perigoso/build.js`.
+-
+-  Isso quase deu errado: o código morava no scratchpad temporário e foi
+-  parcialmente limpo. `p2.js` e `p5a.js` só voltaram porque o HTML publicado
+-  era a concatenação de tudo.
+-- **Manter os testes.** São o que deixa você sumir três meses, voltar sem
+-  lembrar de nada e mexer sabendo na hora se quebrou algo.
++
++O andamento, o que falta fazer e o que falta decidir estão no `PLANEJAMENTO.md`.

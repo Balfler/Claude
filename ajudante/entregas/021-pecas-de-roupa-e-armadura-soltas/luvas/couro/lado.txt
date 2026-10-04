@@ -1,0 +1,1 @@
+1993 pixel art: luvas de couraceiro de cano médio sobre o humano base. DESIGN.md linhas 900, 945-946; src/p3e.js PECAS.armadura.couro. [vista: lado]

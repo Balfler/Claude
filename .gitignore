@@ -1,0 +1,23 @@
+# Histórico de conversas: grande, gravado durante a sessão inteira,
+# não sobrevive bem a sincronização. Fica só na máquina.
+*.jsonl
+.claude/projects/
+.claude/sessions/
+.claude/session-env/
+.claude/shell-snapshots/
+.claude/backups/
+.claude/statsig/
+.claude/todos/
+.claude/settings.local.json
+
+# Lixo do Windows
+Thumbs.db
+desktop.ini
+
+# Dependencias reinstalaveis - nao vao para o repositorio
+node_modules/
+__pycache__/
+.venv/
+
+# A copia do jogo montado que a bancada usa para comparar motores
+mundo-perigoso/canteiro/bancada/antigo.html

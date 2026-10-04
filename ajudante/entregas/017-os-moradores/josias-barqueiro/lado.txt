@@ -1,0 +1,7 @@
+Pixel art sprite character turnaround sheet showing three full-body views side by side: FRONT VIEW, LEFT PROFILE SIDE VIEW (facing left), and BACK VIEW. A weathered middle-aged fantasy fisherman ferryman named Josias (the boatman). Exact same 1993 PC RPG pixel art aesthetic, proportions (117 voxels high in A-pose with arms resting slightly away from body) matching the reference mold. He wears a rolled-up sailor tunic of washed faded blue fabric, rugged brown canvas vest, fisherman wide-brim straw hat, rolled-up pant legs, and bare feet or rope sandals, with a coil of thin boat rope on his hip. Dark contour outlines, limited color palette, strictly flat solid light gray background (#C0C0C0), no floor shadow. Exact same height and joint alignment across all three views.
+
+Origem no projeto: src/conversa.js: linha 15; src/ilha.js: linha 52; DESIGN.md: linha 398, 706 ("casa do barqueiro").
+Morador: Josias (Barqueiro)
+Vista: LADO
+Detalhes: Vista lateral (Left Profile View): virado para a esquerda, aba do chapéu e porte rústico de marinheiro/pescador.
+Estilo: Pixel art 1993, contorno escuro, paleta curta, fundo liso cinza (#C0C0C0), sem sombra no chao. Proporcoes do molde de 117 voxels.

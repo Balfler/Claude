@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Disco de Habilidades</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@400;500;700&family=Cinzel:wght@600;700&family=VT323&display=swap">
+<style>
+/* O mundo do jogo: pedra escura, latao e pergaminho. Um tema so, de proposito --
+   e o mesmo da moldura do jogo e do editor de mapa. */
+:root{
+  --breu:#100c09;
+  --pedra:#1b1510;
+  --pedra-alta:#261e17;
+  --aresta:#3a2e22;
+  --aresta-clara:#54432f;
+  --pergaminho:#e2d4b8;
+  --cinza:#9c8b73;
+  --latao:#c8963c;
+  --latao-claro:#e8b860;
+  --latao-fundo:#3a2a14;
+  --alerta:#d98a3a;
+  --marcial:#1e1711;
+  --magica:#18151a;
+  --memoria:#5b8fd6;
+  --morte:#e0664a;
+  --f-titulo:"Cinzel", Georgia, "Times New Roman", serif;
+  --f-texto:"Alegreya Sans", "Segoe UI", system-ui, sans-serif;
+  --f-num:"VT323", "Lucida Console", Consolas, monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{background:var(--breu)}
+body{margin:0;background:var(--breu);color:var(--pergaminho);font:400 16px/1.45 var(--f-texto);-webkit-font-smoothing:antialiased}
+button,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--latao-claro);outline-offset:2px}
+.num{font-family:var(--f-num);font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.pagina{max-width:1440px;margin:0 auto;padding:28px clamp(14px,3vw,36px) 40px}
+
+/* ---------- topo ---------- */
+.topo{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:24px 44px;align-items:end;padding-bottom:22px}
+.sobre{margin:0 0 6px;font:500 13px var(--f-texto);letter-spacing:.14em;text-transform:uppercase;color:var(--cinza)}
+h1{margin:0;font:700 clamp(30px,4vw,46px)/1.05 var(--f-titulo);letter-spacing:.04em;text-wrap:balance}
+.lede{margin:10px 0 0;max-width:60ch;color:var(--cinza)}
+.controles{display:grid;grid-template-columns:1fr 1fr;gap:14px 24px}
+.campo label,.rotulo{display:block;margin-bottom:6px;font:600 11px var(--f-titulo);letter-spacing:.16em;text-transform:uppercase;color:var(--latao)}
+.linha-campo{display:flex;gap:12px;align-items:center}
+input[type=range]{flex:1;min-width:0;accent-color:var(--latao)}
+input[type=number]{width:3.6em;background:var(--pedra-alta);border:1px solid var(--aresta-clara);border-radius:2px;padding:0 6px;font-size:24px;color:var(--latao-claro)}
+output.num{min-width:3.2ch;font-size:24px;color:var(--latao-claro)}
+.seg{display:inline-flex;flex-wrap:wrap;border:1px solid var(--aresta-clara);border-radius:2px;overflow:hidden}
+.seg button{background:var(--pedra);border:0;padding:6px 13px;cursor:pointer;color:var(--cinza);font-size:15px}
+.seg button + button{border-left:1px solid var(--aresta-clara)}
+.seg button:hover{color:var(--pergaminho)}
+.seg button[aria-pressed="true"]{background:var(--latao-fundo);color:var(--latao-claro)}
+
+/* ---------- receitas ---------- */
+.receitas{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;padding:14px 0;border-top:1px solid var(--aresta)}
+.receitas .rotulo{margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{background:var(--pedra);border:1px solid var(--aresta-clara);border-radius:2px;padding:4px 12px;cursor:pointer;font-size:15px}
+.chip:hover{border-color:var(--latao)}
+.chip[aria-pressed="true"]{background:var(--latao-fundo);border-color:var(--latao);color:var(--latao-claro)}
+.chip.hibrida{border-style:dashed}
+.receita-atual{margin-left:auto;font-size:14px;color:var(--cinza)}
+.link{background:none;border:0;padding:0;cursor:pointer;color:var(--latao);font-size:14px;text-decoration:underline;text-underline-offset:3px}
+.link:hover{color:var(--latao-claro)}
+.botao{background:var(--pedra-alta);border:1px solid var(--aresta-clara);border-radius:2px;padding:6px 14px;cursor:pointer;font-size:15px}
+.botao:hover:not(:disabled){border-color:var(--latao);color:var(--latao-claro)}
+.botao:disabled{opacity:.35;cursor:default}
+.botao.mini{padding:2px 10px;font-size:14px}
+
+/* ---------- a ficha: tres colunas separadas por fio ---------- */
+.ficha{display:grid;grid-template-columns:minmax(250px,.78fr) minmax(0,1.9fr) minmax(290px,.92fr);border-top:1px solid var(--aresta);border-bottom:1px solid var(--aresta)}
+.col{min-width:0;padding:22px 24px}
+.ficha > .col + .col{border-left:1px solid var(--aresta)}
+h2{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 12px;margin:0 0 14px;font:600 14px var(--f-titulo);letter-spacing:.16em;text-transform:uppercase;color:var(--latao)}
+h3{margin:0 0 8px;font:600 11px var(--f-titulo);letter-spacing:.16em;text-transform:uppercase;color:var(--latao)}
+h3 small{margin-left:8px;font:400 13px var(--f-texto);letter-spacing:0;text-transform:none;color:var(--cinza)}
+.contador{font:400 14px var(--f-texto);letter-spacing:0;text-transform:none;color:var(--cinza)}
+.contador b{margin-right:3px;font-size:28px;font-weight:400;color:var(--latao-claro)}
+.aguarda{margin:-6px 0 12px;font-size:14px;color:var(--alerta)}
+.nota{margin:12px 0 0;max-width:66ch;font-size:14px;color:var(--cinza)}
+.aviso{min-height:1.35em;margin:6px 0 0;font-size:14px;color:var(--alerta)}
+
+.lista{display:flex;flex-direction:column}
+.passo{display:flex;gap:4px}
+.passo button{width:32px;height:30px;padding:0;background:var(--pedra-alta);border:1px solid var(--aresta-clara);border-radius:2px;cursor:pointer;font:22px/1 var(--f-num);color:var(--pergaminho)}
+.passo button:hover:not(:disabled){border-color:var(--latao);color:var(--latao-claro)}
+.passo button:disabled{opacity:.3;cursor:default}
+.barra{position:relative;grid-column:1 / -1;height:6px;background:var(--pedra-alta)}
+.barra .comprado,.barra .planejado{position:absolute;top:0;bottom:0;left:0}
+.barra .comprado{background:var(--latao);transition:width .15s}
+.barra .planejado{background:repeating-linear-gradient(90deg,var(--latao) 0 2px,transparent 2px 4px);opacity:.5}
+.barra::after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(90deg,transparent 0 calc(100%/6 - 1px),var(--breu) calc(100%/6 - 1px) calc(100%/6))}
+
+/* atributos */
+.atr{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:6px 12px;padding:11px 0;border-bottom:1px solid var(--aresta)}
+.atr:first-child{padding-top:2px}
+.atr-nome b{display:block;font-size:16px;font-weight:500}
+.atr-nome span{display:block;font-size:13px;line-height:1.3;color:var(--cinza)}
+.atr-valor{min-width:2ch;font-size:34px;line-height:1;text-align:right;color:var(--latao-claro)}
+.atr-custo{grid-column:1 / -1;font-size:13px;color:var(--cinza)}
+
+/* o disco */
+.disco-barra{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px 16px;margin-bottom:6px}
+.legenda-nos{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--cinza)}
+.legenda-nos span{display:inline-flex;align-items:center;gap:6px}
+.bola{display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--pedra-alta);border:1.5px solid var(--aresta-clara)}
+.bola.dono{background:var(--latao);border-color:var(--latao-claro)}
+.bola.livre{background:var(--latao-fundo);border-color:var(--latao-claro)}
+.bola.espera{border-color:var(--latao);border-style:dashed}
+.zoom{display:flex;gap:4px}
+.disco-caixa{position:relative}
+#disco{display:block;width:100%;height:auto;max-width:900px;margin:0 auto;cursor:grab;touch-action:none;user-select:none}
+#disco.arrastando{cursor:grabbing}
+.fatia-fundo.marcial{fill:var(--marcial)}
+.fatia-fundo.magica{fill:var(--magica)}
+.fatia-fundo.caida{fill:var(--caida)}
+.borda-fatia{stroke:var(--aresta-clara);stroke-width:1;stroke-dasharray:3 6}
+.aro{fill:none;stroke:var(--aresta-clara);stroke-width:1.2}
+.rot-fatia{fill:var(--latao);font:700 16px var(--f-titulo);letter-spacing:.14em;text-anchor:middle}
+.rot-fatia.caida{fill:var(--morte)}
+.rot-fatia-num{fill:var(--cinza);font:19px var(--f-num);text-anchor:middle}
+.lig{fill:none;stroke:var(--aresta-clara);stroke-width:1.5}
+.lig.ponte,.lig.porta{stroke-dasharray:4 3}
+.lig.ativa{stroke:var(--latao);stroke-width:3.5;stroke-dasharray:none}
+/* a arvore propria: um setor por fora do disco, que some inteiro */
+.arvore.oculta{display:none}
+.arvore-fundo{fill:var(--pedra);fill-opacity:.6;stroke:var(--aresta);stroke-width:1;stroke-dasharray:3 5}
+.arvore.aberta .arvore-fundo{stroke:var(--aresta-clara);stroke-dasharray:none}
+.arvore.escolhida .arvore-fundo{fill:var(--latao-fundo);fill-opacity:.4;stroke:var(--latao);stroke-dasharray:none}
+.no-hit{fill:var(--breu);fill-opacity:0}
+.no-c{fill:var(--pedra-alta);stroke:var(--aresta-clara);stroke-width:1.5}
+.no.notavel .no-c,.no.entrada .no-c,.no.porta .no-c{stroke-width:2}
+.no.livre .no-c{fill:var(--latao-fundo);stroke:var(--latao-claro)}
+.no.espera .no-c{stroke:var(--latao);stroke-dasharray:2 2}
+.no.dono .no-c{fill:var(--latao);stroke:var(--latao-claro)}
+.no.dono.notavel .no-c,.no.dono.entrada .no-c,.no.dono.porta .no-c,.no.centro .no-c{fill:var(--latao-claro);stroke:var(--latao)}
+.no.livre,.no.dono,.no.espera{cursor:pointer}
+.no:focus,.lobo:focus{outline:none}
+.no:focus-visible .no-c{stroke:var(--pergaminho);stroke-width:3.5}
+.lobo{cursor:pointer}
+.lobo rect{fill:var(--pedra);stroke:var(--aresta-clara);stroke-width:1.2;stroke-dasharray:4 3}
+.lobo text{fill:var(--cinza);font:500 14px var(--f-texto);text-anchor:middle}
+.lobo.aberta rect{stroke:var(--latao);stroke-dasharray:none}
+.lobo.aberta text{fill:var(--pergaminho)}
+.lobo.escolhida rect{fill:var(--latao-fundo);stroke:var(--latao-claro);stroke-width:2;stroke-dasharray:none}
+.lobo.escolhida text{fill:var(--latao-claro)}
+.lobo:focus-visible rect{stroke:var(--pergaminho);stroke-width:2.5}
+.dica{position:absolute;z-index:3;display:flex;flex-direction:column;gap:2px;max-width:270px;padding:8px 11px;pointer-events:none;font-size:13px;line-height:1.35;background:var(--pedra-alta);border:1px solid var(--aresta-clara)}
+.dica b{font-size:15px;font-weight:500}
+.dica span{color:var(--cinza)}
+.dica em{font-style:normal;color:var(--latao-claro)}
+
+/* especializacao */
+.esp-bloco{margin-top:22px;padding-top:18px;border-top:1px solid var(--aresta)}
+.escolhida-bloco{padding:14px 16px;background:var(--pedra);border:1px solid var(--aresta-clara)}
+.escolhida-bloco p{margin:0}
+.esp-linha{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 16px;margin-top:10px;font-size:14px;color:var(--cinza)}
+.esp-linha .num{font-size:22px;color:var(--latao-claro)}
+/* a traicao: a fatia caida usa a cor da morte, a mesma do grafico */
+:root{--caida:#23120f}
+.traicao{margin-top:16px}
+.traicao .chk input{accent-color:var(--morte)}
+.traicao .nota{margin-top:4px}
+.chip.caida{border-color:var(--morte)}
+.esp.caida .esp-nome{text-decoration:underline;text-decoration-color:var(--morte);text-underline-offset:4px}
+.esp-grupo{margin-top:18px}
+.esp-grupo summary{cursor:pointer;list-style-position:inside}
+.esp-grupo summary h3{display:inline}
+.esp-lista{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:0 26px;margin-top:4px}
+.esp{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:4px 10px;padding:9px 0;border-bottom:1px solid var(--aresta)}
+.esp-nome{font-weight:500}
+.esp.fechada .esp-nome{color:var(--cinza)}
+.esp.escolhida .esp-nome{color:var(--latao-claro)}
+.esp-acoes{display:flex;align-items:center;gap:8px}
+.selo{padding:1px 7px;border:1px solid var(--aresta-clara);font:600 10px var(--f-titulo);letter-spacing:.14em;text-transform:uppercase;color:var(--cinza)}
+.esp.aberta .selo{border-color:var(--latao);color:var(--latao)}
+.esp.escolhida .selo{background:var(--latao-fundo);border-color:var(--latao-claro);color:var(--latao-claro)}
+.esp-req{grid-column:1 / -1;display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px;color:var(--cinza)}
+.req{display:inline-flex;align-items:center;gap:6px}
+.req-barra{position:relative;width:44px;height:4px;background:var(--pedra-alta)}
+.req-barra span{position:absolute;left:0;top:0;bottom:0;background:var(--latao)}
+.req.ok .req-barra span{background:var(--latao-claro)}
+.req .num{font-size:16px;color:var(--pergaminho)}
+
+/* resultado */
+.equip{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px}
+.chk{display:inline-flex;align-items:center;gap:8px;font-size:15px;cursor:pointer}
+.chk input{width:16px;height:16px;accent-color:var(--latao)}
+.comparar{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin:16px 0 6px}
+.tabela-rolagem{overflow-x:auto}
+#tabela{width:100%;border-collapse:collapse;font-size:15px}
+#tabela th,#tabela td{padding:6px 0;border-bottom:1px solid var(--aresta);text-align:right;white-space:nowrap}
+#tabela thead th{padding-bottom:8px;vertical-align:bottom;white-space:normal;font:600 10px var(--f-titulo);letter-spacing:.14em;text-transform:uppercase;color:var(--cinza)}
+#tabela th[scope=row]{text-align:left;font-weight:400;white-space:normal}
+#tabela th[scope=row] small{display:block;font-size:12px;color:var(--cinza)}
+#tabela td{padding-left:14px;font-size:23px}
+#tabela td.guardada{color:var(--cinza)}
+#tabela td.dif{color:var(--latao-claro)}
+#tabela tr.grupo th{padding-top:16px;text-align:left;font:600 10px var(--f-titulo);letter-spacing:.14em;text-transform:uppercase;color:var(--alerta)}
+.sem-comparacao .col-guardada{display:none}
+.pericias-titulo{margin-top:20px}
+.pericias{display:flex;flex-wrap:wrap;gap:6px}
+.pericia{padding:2px 8px;border:1px solid var(--aresta-clara);border-radius:2px;font-size:13px}
+.pericia.unica{border-color:var(--latao);color:var(--latao-claro)}
+
+/* ---------- embaixo ---------- */
+.baixo{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);border-bottom:1px solid var(--aresta)}
+.baixo > .col + .col{border-left:1px solid var(--aresta)}
+.xp{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px;margin:0 0 14px}
+.xp .num{font-size:30px;color:var(--latao-claro)}
+.xp span:last-child{font-size:15px;color:var(--cinza)}
+.acoes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.acao{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:10px 14px;text-align:left;background:var(--pedra-alta);border:1px solid var(--aresta-clara);border-radius:2px;cursor:pointer}
+.acao:hover{border-color:var(--latao)}
+.acao b{display:flex;align-items:center;gap:10px;font-size:16px;font-weight:500}
+.acao b::before{content:"";width:16px;height:2px;background:var(--cor-serie)}
+.acao small{padding-left:26px;font-size:13px;color:var(--cinza)}
+.acao-morte{--cor-serie:var(--morte)}
+.acao-mago{--cor-serie:var(--memoria)}
+.evento{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-top:12px;padding:12px 14px;background:var(--pedra);border:1px solid var(--aresta-clara)}
+.evento p{margin:0;max-width:72ch}
+.grafico{margin:22px 0 0}
+figcaption{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:6px 16px;margin-bottom:6px}
+.legenda{display:inline-flex;flex-wrap:wrap;align-items:center;gap:6px 8px;font-size:14px;color:var(--cinza)}
+.traco{display:inline-block;width:16px;height:2px;vertical-align:middle}
+.traco.morte{background:var(--morte)}
+.traco.mago{background:var(--memoria)}
+.legenda .traco + span{margin-right:10px}
+.grafico-caixa{position:relative}
+#grafico{display:block;width:100%;height:auto}
+.grade{stroke:var(--aresta);stroke-width:1}
+.eixo{stroke:var(--aresta-clara);stroke-width:1}
+.rot-x,.rot-y{fill:var(--cinza);font:16px var(--f-num)}
+.rot-x{text-anchor:middle}
+.rot-y{text-anchor:end}
+.titulo-eixo{fill:var(--cinza);font:12px var(--f-texto);text-anchor:middle}
+.serie{fill:none;stroke-width:2;stroke-linejoin:round}
+.serie.morte{stroke:var(--morte)}
+.serie.mago{stroke:var(--memoria)}
+.rot-serie{fill:var(--pergaminho);font:13px var(--f-texto)}
+.voce-linha{stroke:var(--latao);stroke-width:1;stroke-dasharray:3 4}
+.voce-rot{fill:var(--latao-claro);font:600 9px var(--f-titulo);letter-spacing:.18em;text-anchor:middle}
+.voce-ponto{stroke:var(--pedra);stroke-width:2}
+.voce-ponto.morte{fill:var(--morte)}
+.voce-ponto.mago{fill:var(--memoria)}
+.cruz{stroke:var(--cinza);stroke-width:1;opacity:.55}
+.alvo{fill:var(--breu);fill-opacity:0;cursor:crosshair}
+.dica-grafico{position:absolute;z-index:2;display:flex;flex-direction:column;gap:2px;padding:6px 10px;white-space:nowrap;pointer-events:none;font-size:13px;background:var(--pedra-alta);border:1px solid var(--aresta-clara)}
+.dica-grafico b{font-weight:500}
+.dica-grafico span{display:flex;align-items:center;gap:8px}
+details{font-size:14px}
+summary{cursor:pointer;color:var(--latao)}
+.grafico details{margin-top:10px}
+.tabela-curva{margin-top:8px;border-collapse:collapse}
+.tabela-curva th,.tabela-curva td{padding:3px 16px 3px 0;text-align:right;border-bottom:1px solid var(--aresta)}
+.tabela-curva th{font-weight:500;color:var(--cinza)}
+.tabela-curva td{font:19px var(--f-num)}
+textarea{display:block;width:100%;margin-top:12px;padding:10px 12px;resize:vertical;background:var(--pedra);border:1px solid var(--aresta-clara);border-radius:2px;font:17px/1.35 var(--f-num);color:var(--pergaminho)}
+.acoes-texto{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:10px}
+.rodape p{margin:18px 0 0;max-width:96ch;font-size:13px;color:var(--cinza)}
+code{font-family:var(--f-num);font-size:17px;color:var(--pergaminho)}
+
+@media (max-width:1280px){
+  .topo{grid-template-columns:1fr}
+  .ficha{grid-template-columns:1fr 1fr}
+  .col-disco{grid-column:1 / -1;grid-row:1;border-bottom:1px solid var(--aresta)}
+  .ficha > .col + .col{border-left:0}
+  .ficha > .col-res{border-left:1px solid var(--aresta)}
+  .baixo{grid-template-columns:1fr}
+  .baixo > .col + .col{border-left:0;border-top:1px solid var(--aresta)}
+}
+@media (max-width:760px){
+  .ficha{grid-template-columns:1fr}
+  .ficha > .col-res{border-left:0;border-top:1px solid var(--aresta)}
+  .controles,.acoes{grid-template-columns:1fr}
+  .col{padding:18px 2px}
+  .receita-atual{margin-left:0}
+}
+@media (prefers-reduced-motion: reduce){ *{transition:none!important} }
+</style>
+</head>
+<body>
+<div class="pagina">
+
+<header class="topo">
+  <div class="marca">
+    <p class="sobre">Mundo Perigoso &#xb7; simulador de build</p>
+    <h1>Disco de Habilidades</h1>
+    <p class="lede">Monte um personagem sem classe fixa: distribua atributos, ande pelo disco a partir do centro, abra uma especializa&#xe7;&#xe3;o juntando fatias e veja o que a morte e o mago da mem&#xf3;ria tiram dele.</p>
+  </div>
+  <div class="controles">
+    <div class="campo">
+      <label for="nivel">N&#xed;vel</label>
+      <div class="linha-campo">
+        <input type="range" id="nivel" min="1" max="100" step="1">
+        <input type="number" id="nivelNum" class="num" min="1" max="100" step="1" aria-label="N&#xed;vel em n&#xfa;mero">
+      </div>
+    </div>
+    <div class="campo">
+      <label for="progresso">Andado no n&#xed;vel</label>
+      <div class="linha-campo">
+        <input type="range" id="progresso" min="0" max="99" step="1">
+        <output id="progressoTxt" class="num" for="progresso"></output>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="receitas" aria-label="Receitas">
+  <span class="rotulo">Receitas</span>
+  <div class="chips" id="receitas"></div>
+  <span class="receita-atual" id="receitaAtual"></span>
+  <button type="button" class="link" id="btnLimpar">Limpar tudo</button>
+</nav>
+
+<main class="ficha">
+  <section class="col col-atr" aria-labelledby="hAtr">
+    <h2 id="hAtr">Atributos <span class="contador"><b class="num" id="atrLivres"></b>livres de <span class="num" id="atrVerba"></span></span></h2>
+    <p class="aguarda" id="atrEspera" hidden></p>
+    <div class="lista" id="atributos"></div>
+    <p class="nota">Cada ponto custa 1, mais 1 a cada dez que o atributo j&#xe1; tem. As marcas na barra s&#xe3;o onde o pre&#xe7;o sobe. O teto &#xe9; 60.</p>
+  </section>
+
+  <section class="col col-disco" aria-labelledby="hDisco">
+    <h2 id="hDisco">O disco <span class="contador"><b class="num" id="habLivres"></b>livres de <span class="num" id="habVerba"></span></span></h2>
+    <p class="aguarda" id="habEspera" hidden></p>
+    <div class="disco-barra">
+      <div class="legenda-nos">
+        <span><i class="bola dono"></i>comprado</span>
+        <span><i class="bola livre"></i>encostado</span>
+        <span><i class="bola espera"></i>esperando n&#xed;vel</span>
+        <span><i class="bola"></i>longe</span>
+      </div>
+      <div class="zoom" role="group" aria-label="Aproximar o disco">
+        <button type="button" class="botao mini" id="zoomMenos" aria-label="Afastar">&minus;</button>
+        <button type="button" class="botao mini" id="zoomMais" aria-label="Aproximar">+</button>
+        <button type="button" class="botao mini" id="zoomTudo">Ver o disco inteiro</button>
+      </div>
+    </div>
+    <div class="disco-caixa" id="discoCaixa">
+      <svg id="disco" viewBox="0 0 1240 1240" role="group" aria-label="Disco de per&#xed;cias com seis fatias e as &#xe1;rvores das especializa&#xe7;&#xf5;es por fora"></svg>
+      <div class="dica" id="dicaDisco" hidden><b id="dicaNome"></b><span id="dicaOnde"></span><span id="dicaEfeito"></span><em id="dicaEstado"></em></div>
+    </div>
+    <p class="aviso" id="discoAviso" role="status"></p>
+    <p class="nota">Clique num n&#xf3; encostado para comprar e num comprado para devolver. A roda do mouse aproxima e arrastar move. Os n&#xf3;s grandes s&#xe3;o per&#xed;cias; os pequenos, melhorias do ramo. Por fora do disco fica a &#xe1;rvore de cada especializa&#xe7;&#xe3;o: as de fatias vizinhas fecham um anel, e as outras aparecem quando escolhidas. Entra-se numa &#xe1;rvore pela ponta do ramo que d&#xe1; para a outra fatia.</p>
+
+    <div class="esp-bloco">
+      <h2 id="hEsp">Especializa&#xe7;&#xe3;o <span class="contador" id="espAtual"></span></h2>
+      <div class="escolhida-bloco" id="espEscolhida">
+        <p id="espTexto"></p>
+        <div class="esp-linha" id="espLinha">
+          <span><span class="num" id="espConta"></span> n&#xf3;s da &#xe1;rvore comprados</span>
+          <button type="button" class="link" id="espSoltar">Tirar a especializa&#xe7;&#xe3;o</button>
+        </div>
+        <p class="aviso" id="espAviso" role="status"></p>
+      </div>
+      <div class="traicao">
+        <label class="chk"><input type="checkbox" id="caido"> O cl&#xe9;rigo traiu e virou necromante</label>
+        <p class="nota" id="traicaoTexto"></p>
+      </div>
+      <div id="espGrupos"></div>
+      <p class="nota">No jogo o personagem carrega uma especializa&#xe7;&#xe3;o s&#xf3;, e trocar &#xe9; no mago da mem&#xf3;ria. A trai&#xe7;&#xe3;o n&#xe3;o tem volta. Aqui tudo &#xe9; livre para testar.
+  </section>
+
+  <section class="col col-res" aria-labelledby="hRes">
+    <h2 id="hRes">O que isso d&#xe1;</h2>
+    <div class="equip">
+      <div class="seg" role="group" aria-label="Armadura" id="armaduras"></div>
+      <label class="chk"><input type="checkbox" id="escudo"> Escudo</label>
+    </div>
+    <p class="nota" id="penalidade"></p>
+    <div class="comparar">
+      <button type="button" class="botao" id="btnGuardar">Guardar para comparar</button>
+      <button type="button" class="link" id="btnSoltar">Tirar compara&#xe7;&#xe3;o</button>
+    </div>
+    <div class="tabela-rolagem">
+      <table id="tabela">
+        <thead>
+          <tr>
+            <th scope="col"><span class="sr">Medida</span></th>
+            <th scope="col">Atual</th>
+            <th scope="col" class="col-guardada" id="colGuardada"></th>
+            <th scope="col" class="col-guardada">Diferen&#xe7;a</th>
+          </tr>
+        </thead>
+        <tbody id="tabelaCorpo"></tbody>
+      </table>
+    </div>
+    <h3 class="pericias-titulo">O que sabe fazer</h3>
+    <div class="pericias" id="pericias"></div>
+  </section>
+</main>
+
+<div class="baixo">
+  <section class="col col-morte" aria-labelledby="hMorte">
+    <h2 id="hMorte">Morte e mago da mem&#xf3;ria</h2>
+    <p class="xp"><span class="num" id="xpNivel"></span><span id="xpTotal"></span></p>
+    <div class="acoes">
+      <button type="button" class="acao acao-morte" id="btnMorrer"><b>Morrer</b><small>perde 5% da experi&#xea;ncia</small></button>
+      <button type="button" class="acao acao-mago" id="btnMago"><b>Ir ao mago da mem&#xf3;ria</b><small>perde 3% e apaga todos os pontos</small></button>
+    </div>
+    <label class="chk"><input type="checkbox" id="naIlha"> Est&#xe1; na ilha inicial, onde o mago trabalha de gra&#xe7;a</label>
+    <p class="nota" id="magoPreco"></p>
+    <div class="evento" id="evento" role="status" hidden>
+      <p id="eventoTexto"></p>
+      <button type="button" class="botao" id="btnDesfazer">Desfazer</button>
+    </div>
+    <figure class="grafico">
+      <figcaption>
+        <h3>N&#xed;veis perdidos em cada n&#xed;vel</h3>
+        <span class="legenda"><i class="traco morte"></i><span>Morte, 5%</span><i class="traco mago"></i><span>Mago, 3%</span></span>
+      </figcaption>
+      <div class="grafico-caixa" id="graficoCaixa">
+        <svg id="grafico" role="img" aria-label="N&#xed;veis perdidos por n&#xed;vel: a morte tira cerca de um n&#xed;vel no n&#xed;vel 60 e 1,7 no n&#xed;vel 100; o mago tira 0,6 e um n&#xed;vel."></svg>
+        <div class="dica-grafico" id="dicaGrafico" hidden>
+          <b id="dgNivel"></b>
+          <span><i class="traco morte"></i><span id="dgMorte"></span></span>
+          <span><i class="traco mago"></i><span id="dgMago"></span></span>
+        </div>
+      </div>
+      <p class="nota">Calculado com meio n&#xed;vel andado, na curva de experi&#xea;ncia do Tibia. A linha tracejada &#xe9; o n&#xed;vel escolhido l&#xe1; em cima.</p>
+      <details>
+        <summary>Ver em tabela</summary>
+        <table class="tabela-curva">
+          <thead><tr><th scope="col">N&#xed;vel</th><th scope="col">Morte</th><th scope="col">Mago</th></tr></thead>
+          <tbody id="curvaCorpo"></tbody>
+        </table>
+      </details>
+    </figure>
+  </section>
+
+  <section class="col col-texto" aria-labelledby="hTexto">
+    <h2 id="hTexto">A build em texto</h2>
+    <p class="nota">Para colar numa conversa. Quem colar este texto aqui v&#xea; a mesma build, com a mesma ordem de compras.</p>
+    <textarea id="texto" rows="12" spellcheck="false" aria-label="Build em texto"></textarea>
+    <div class="acoes-texto">
+      <button type="button" class="botao" id="btnCopiar">Copiar</button>
+      <button type="button" class="botao" id="btnCarregar">Carregar este texto</button>
+      <span class="aviso" id="textoAviso" role="status"></span>
+    </div>
+  </section>
+</div>
+
+<footer class="rodape">
+  <p>Os n&#xfa;meros s&#xe3;o o ponto de partida combinado, n&#xe3;o o equil&#xed;brio final. Toda regra mora em <code>src/regras.js</code>, o mesmo arquivo que o jogo vai ler. Nomes, efeitos e exig&#xea;ncias das per&#xed;cias s&#xe3;o provis&#xf3;rios: servem para testar o formato do disco. B&#xf4;nus de dano e cura esperam a f&#xf3;rmula de combate.</p>
+</footer>
+
+</div>
+<script src="../src/regras.js"></script>
+<script src="simulador.js"></script>
+</body>
+</html>

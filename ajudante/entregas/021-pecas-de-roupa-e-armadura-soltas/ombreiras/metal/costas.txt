@@ -1,0 +1,1 @@
+1993 pixel art: spalders articuladas de placas de metal sobre o humano base. DESIGN.md linhas 945-946, 1109-1120; src/p3e.js PECAS.armadura.placas. [vista: costas]
